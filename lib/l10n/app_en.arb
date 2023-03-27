@@ -1,0 +1,18 @@
+{
+
+    "next":"Next",
+    "skip":"Skip",
+    "signup":" Signup",
+    "login":" Login In",
+    "name":"Enter your name",
+    "phone":"092000000",
+    "pass":"*******",
+    "username":"UserName",
+    "phonenumber":"Phone Number",
+    "password":"Password",
+    "error_name":"Plase Enter your Name!!",
+    "error_password":"Plase Enter your password!!",
+    "error_phone":"Plase Enter your phone!!",
+    "error_pass1":"Password must be more than 8 characters"
+
+}
