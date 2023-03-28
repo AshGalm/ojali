@@ -12,6 +12,6 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
 
-    return const Placeholder();
+    return const Scaffold();
   }
 }

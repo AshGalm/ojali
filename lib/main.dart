@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
 // import 'package:ojali/screens/main_screens/home_screen.dart';
 
-import 'screens/auth_screens/intro_screen.dart';
+import 'screens/auth_screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,11 +29,11 @@ class MyApp extends StatelessWidget {
         Locale('ar'), // arabic
         Locale('en'), // English
       ],
-      // locale: Locale('ar'),
+      // locale: Locale('en'),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const IntroScreen(),
+      home: const SplashScreen(),
     );
   }
 }
