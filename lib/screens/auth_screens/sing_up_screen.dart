@@ -38,7 +38,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 120,
+                  height: 50,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -104,20 +104,31 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MainButton(
                           text: AppLocalizations.of(context)!.signup,
                           withBorder: false,
-                          widthFromScreen: 0.4,
+                          widthFromScreen: 0.9,
                           isloading: false,
                           onPressed: () {},
                           isActive: enableLoginBtn),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.ac_sing,
+                        style: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       MainButton(
                           text: AppLocalizations.of(context)!.login,
                           withBorder: true,
-                          widthFromScreen: 0.4,
+                          widthFromScreen: 0.9,
                           isloading: false,
                           onPressed: () {
                             Navigator.of(context).pop();

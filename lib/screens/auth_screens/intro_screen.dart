@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+import 'package:ojali/screens/main_screens/home_screen.dart';
+
+import '../../helpers/const.dart';
+import '../../widgets/static_widgets/intro_card.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -10,8 +16,85 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
+    List<Widget> listPagesViewModel = [
+      IntroCard(
+        image: 'assets/introscreen/intro1.png',
+        title: AppLocalizations.of(context)!.intro1_title1,
+      ),
+      IntroCard(
+        image: 'assets/introscreen/intro2.png',
+        title: AppLocalizations.of(context)!.intro1_title2,
+      ),
+      IntroCard(
+        image: 'assets/introscreen/intro3.png',
+        title: AppLocalizations.of(context)!.intro1_title3,
+      ),
+    ];
 
-    return const Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(
+            height: 120,
+          ),
+          Expanded(
+            child: IntroductionScreen(
+              rawPages: listPagesViewModel,
+              done: Container(
+                decoration: BoxDecoration(
+                    color: mainColor, borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                  child: Text(
+                    AppLocalizations.of(context)!.entr,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              next: Container(
+                decoration: BoxDecoration(
+                    color: mainColor, borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                  child: Text(
+                    AppLocalizations.of(context)!.next,
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              skip: Text(
+                AppLocalizations.of(context)!.skip,
+                style: TextStyle(color: mainColor, fontWeight: FontWeight.bold),
+              ),
+              showSkipButton: true,
+              dotsDecorator: DotsDecorator(
+                  size: const Size.square(6.0),
+                  activeSize: const Size(30.0, 6.0),
+                  activeShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0)),
+                  color: mainColor.withOpacity(0.5),
+                  activeColor: mainColor),
+              onSkip: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
+              },
+              onDone: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
