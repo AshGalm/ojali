@@ -16,7 +16,7 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     List<Widget> listPagesViewModel = [
       IntroCard(
         image: 'assets/introscreen/intro1.png',
