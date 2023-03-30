@@ -32,8 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   hintText: AppLocalizations.of(context)!.search,
                   obSecureText: false,
                   perfix: const Icon(Icons.search),
-                  validator: (String? value) {}),
-            ),
+                  validator: (String? value) {
+                    return null;
+                  }),
+            )
           ],
         ),
       ),
