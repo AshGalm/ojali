@@ -43,7 +43,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Image.asset(
-                    'assets/logo.png',
+                    'assets/logo1.png',
                     width: size.width,
                     height: size.width * 0.4,
                     fit: BoxFit.cover,

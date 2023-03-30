@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
 // import 'package:ojali/screens/main_screens/home_screen.dart';
 
+import 'screens/auth_screens/login_screen.dart';
 import 'screens/auth_screens/splash_screen.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }

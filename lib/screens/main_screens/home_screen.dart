@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   obSecureText: false,
                   perfix: const Icon(Icons.search),
                   validator: (String? value) {}),
-            )
+            ),
           ],
         ),
       ),
