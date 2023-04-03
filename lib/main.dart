@@ -5,10 +5,10 @@ import 'package:ojali/screens/auth_screens/otp_screen.dart';
 // import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
 import 'package:ojali/screens/main_screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojali/widgets/clickable_widgets/food_card.dart';
 
 import 'screens/auth_screens/login_screen.dart';
 import 'screens/auth_screens/splash_screen.dart';
-import 'screens/sallah.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.cairoTextTheme(),
       ),
-      home: const Sallah(),
+      home: const SplashScreen(),
     );
   }
 }

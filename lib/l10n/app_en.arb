@@ -25,7 +25,12 @@
     "search":"you can find what you want here ",
     "ojali":" Ojali Store ",
     "newoj":" New Ojali ",
-    "famsoj":"Fames Ojali "
+    "famsoj":"Fames Ojali ",
+    "foodtypes":"Types:",
+    "all":"All",
+    "pastries":"Pastries",
+    "salads":"Salads",
+    "nawashif":"Nawashif"
 
 
 }
