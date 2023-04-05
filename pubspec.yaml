@@ -37,10 +37,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts:
   pin_code_fields:
+  shared_preferences:
   http:
   provider:
   introduction_screen:
   carousel_slider:
+  firebase_auth: ^4.0.2
+  firebase_core: ^2.9.0
   flutter_localizations:
     sdk: flutter
   intl:

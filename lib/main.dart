@@ -1,14 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ojali/screens/auth_screens/intro_screen.dart';
 import 'package:ojali/screens/auth_screens/login_screen.dart';
-import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
-import 'package:ojali/screens/main_screens/tabs_screen.dart';
-import 'package:ojali/screens/sub_screens/food_details_screen.dart';
 
-void main() {
+import 'firebase_options.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.cairoTextTheme(),
       ),
-      home: const TabsScreen(),
+      home: const LoginScreen(),
     );
   }
 }

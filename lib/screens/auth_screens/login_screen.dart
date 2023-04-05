@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ojali/main.dart';
+import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 
 import '../../widgets/input_widgets/text_field_widget.dart';
@@ -12,10 +17,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool enableLoginBtn = false;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  // static const snackBar =
+  //     SnackBar(content: Text('wrong  password please enter the correct one'));
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFieldWidget(
-                      label: AppLocalizations.of(context)!.phonenumber,
-                      controller: phoneController,
-                      hintText: AppLocalizations.of(context)!.phone,
+                      label: AppLocalizations.of(context)!.email,
+                      controller: emailController,
+                      hintText: AppLocalizations.of(context)!.email,
                       obSecureText: false,
-                      perfix: const Icon(Icons.phone),
+                      // perfix: const Icon(Icons.phone),
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return AppLocalizations.of(context)!.error_phone;
@@ -90,11 +99,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MainButton(
-                            text: AppLocalizations.of(context)!.signup,
+                            text: AppLocalizations.of(context)!.login,
                             withBorder: false,
                             widthFromScreen: 0.9,
                             isloading: false,
-                            onPressed: () {},
+                            onPressed: () async {
+                              auth
+                                  .signInWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text)
+                                  .then((value) async {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => const MyApp()),
+                                    (route) => false);
+                              });
+                            },
                             isActive: enableLoginBtn),
                         const SizedBox(
                           height: 10,
@@ -108,12 +129,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 10,
                         ),
                         MainButton(
-                            text: AppLocalizations.of(context)!.login,
+                            text: AppLocalizations.of(context)!.signup,
                             withBorder: true,
                             widthFromScreen: 0.9,
                             isloading: false,
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: ((context) =>
+                                          const SingUpScreen())));
                             },
                             isActive: true),
                       ],

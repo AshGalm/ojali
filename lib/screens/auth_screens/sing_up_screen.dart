@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ojali/screens/auth_screens/login_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 
 import '../../widgets/input_widgets/text_field_widget.dart';
