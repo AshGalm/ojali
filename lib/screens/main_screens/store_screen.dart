@@ -83,7 +83,7 @@ class _StoreScreenState extends State<StoreScreen> {
                   itemCount: 7,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return FoodCard();
+                    return const FoodCard();
                   }),
             )
           ],

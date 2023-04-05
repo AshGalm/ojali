@@ -8,7 +8,7 @@ class FoodCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: Container(
@@ -19,7 +19,7 @@ class FoodCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(0.0),
               boxShadow: const [
                 BoxShadow(
-                    offset: const Offset(-10, 10),
+                    offset: Offset(-10, 10),
                     blurRadius: 20.0,
                     spreadRadius: 4.0)
               ]),

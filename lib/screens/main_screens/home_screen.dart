@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/clickable_widgets/branches_card.dart';
 import '../../widgets/clickable_widgets/small_card.dart';
 import '../../widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: TextFieldWidget(
                   controller: searchController,
                   hintText: AppLocalizations.of(context)!.search,
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                     Text(
@@ -89,6 +90,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    Text(
+                      AppLocalizations.of(context)!.branche,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ]),
+                  SizedBox(
+                    width: 600,
+                    height: 100,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 3,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return const BranchCard();
+                      },
+                    ),
+                  )
                 ],
               ),
             )

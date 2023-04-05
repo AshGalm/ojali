@@ -35,7 +35,7 @@ class _IntroScreenState extends State<IntroScreen> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 120,
           ),
           Expanded(
