@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-// import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
-import 'package:ojali/screens/main_screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ojali/widgets/clickable_widgets/food_card.dart';
-
-import 'screens/auth_screens/splash_screen.dart';
-import 'screens/main_screens/store_screen.dart';
-import 'screens/main_screens/tabs_screen.dart';
-import 'widgets/clickable_widgets/food_details_card.dart';
+import 'package:ojali/screens/sub_screens/food_details_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.cairoTextTheme(),
       ),
-      home: const TabsScreen(),
+      home: const FoodDetails(),
     );
   }
 }

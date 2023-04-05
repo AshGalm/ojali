@@ -18,7 +18,7 @@ class CarouselWidget extends StatelessWidget {
           .map(
             (item) => Center(
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.network(
                   item,
                   fit: BoxFit.cover,

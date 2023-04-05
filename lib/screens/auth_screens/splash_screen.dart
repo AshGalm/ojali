@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
 
 import 'intro_screen.dart';
 

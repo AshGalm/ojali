@@ -12,9 +12,9 @@ class SmallCardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(8),
             child: Container(
-              height: size.width * 0.2,
+              height: size.width * 0.3,
               decoration: const BoxDecoration(boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: Colors.black, blurRadius: 12.0, offset: Offset(7, 7))

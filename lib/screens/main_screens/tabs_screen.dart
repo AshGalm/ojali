@@ -15,7 +15,7 @@ class _TabsScreenState extends State<TabsScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: AnimatedSwitcher(
         duration: animationDuration,

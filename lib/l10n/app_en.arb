@@ -2,6 +2,7 @@
 
     "next":"Next",
     "skip":"Skip",
+    "logout":" logout",
     "signup":" Signup",
     "login":" Login In",
     "entr":" Enter",
@@ -27,10 +28,31 @@
     "newoj":" New Ojali ",
     "famsoj":"Fames Ojali ",
     "foodtypes":"Types:",
+    "category":"Category:",
+    "branche":" Our Branches ",
     "all":"All",
     "pastries":"Pastries",
     "salads":"Salads",
-    "nawashif":"Nawashif"
+    "nawashif":"Nawashif",
+    "prob":"Got a problem?",
+    "send":"Send",
+    "account":"Edit account information",
+    "changepass":"Change the password",
+    "usermode":"night mode",
+    "tellisu":"Report the problem",
+    "lang":"language:",
+    "location":"Location",
+    "email":"Email",
+    "save":"Save",
+    "back":"Back",
+    "data":"there is no data to show",
+    "issue":"you can send us your issue so we can help you with it",
+    "det1":"details",
+    "det2":"Order now",
+    "det3":"comments"
+
+
+
 
 
 }
