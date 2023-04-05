@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojali/screens/auth_screens/intro_screen.dart';
+import 'package:ojali/screens/auth_screens/login_screen.dart';
+import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
+import 'package:ojali/screens/main_screens/tabs_screen.dart';
 import 'package:ojali/screens/sub_screens/food_details_screen.dart';
 
 void main() {
@@ -27,12 +31,12 @@ class MyApp extends StatelessWidget {
         Locale('ar'), // arabic
         Locale('en'), // English
       ],
-      // locale: const Locale('en'),
+      locale: const Locale('en'),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.cairoTextTheme(),
       ),
-      home: const FoodDetails(),
+      home: const TabsScreen(),
     );
   }
 }
