@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/const.dart';
+import '../../providers/dark_theme_provider.dart';
 
 class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget(
@@ -25,6 +27,10 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
+    //  Theme provider functions variable
+
     return Column(
       children: [
         if (widget.label != null)
@@ -33,8 +39,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             children: [
               Text(
                 widget.label ?? "",
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: themeListener.isDark ? lightColor : darkColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -50,22 +58,34 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 13.0, horizontal: 16),
               suffixIcon: widget.perfix,
-              fillColor: mainColor.withOpacity(0.2),
+              fillColor:
+                  themeListener.isDark ? lightColor : appColor.withOpacity(0.3),
               filled: true,
               hintText: widget.hintText,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(color: mainColor.withOpacity(0.2))),
-              focusColor: mainColor.withOpacity(0.2),
+                  borderSide: BorderSide(
+                      color: themeListener.isDark
+                          ? lightColor.withOpacity(0.2)
+                          : darkColor.withOpacity(0.2))),
+              focusColor: themeListener.isDark
+                  ? darkColor.withOpacity(0.2)
+                  : lightColor.withOpacity(0.2),
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(color: Colors.red)),
+                  borderSide: const BorderSide(color: appColor)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(color: mainColor.withOpacity(0.4))),
+                  borderSide: BorderSide(
+                      color: themeListener.isDark
+                          ? lightColor.withOpacity(0.4)
+                          : darkColor.withOpacity(0.4))),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(color: mainColor.withOpacity(0.2))),
+                  borderSide: BorderSide(
+                      color: themeListener.isDark
+                          ? lightColor.withOpacity(0.2)
+                          : darkColor.withOpacity(0.2))),
             ))
       ],
     );

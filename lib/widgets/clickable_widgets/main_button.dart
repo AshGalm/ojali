@@ -10,7 +10,7 @@ class MainButton extends StatefulWidget {
       required this.widthFromScreen,
       required this.isloading,
       required this.onPressed,
-      required this.isActive});
+      this.isActive = true});
   final String text;
   final bool withBorder;
   final double widthFromScreen;
@@ -25,35 +25,40 @@ class _MainButtonState extends State<MainButton> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Center(
-      child: Container(
-        height: 50,
-        width: size.width * widget.widthFromScreen,
-        decoration: BoxDecoration(
-            color: widget.withBorder
-                ? Colors.white
-                : widget.isActive
-                    ? mainColor
-                    : mainColor.withOpacity(0.5),
-            border: Border.all(
-                color: widget.isActive ? mainColor : Colors.transparent,
-                width: 2),
-            borderRadius: BorderRadius.circular(10)),
-        child: Center(
-          child: widget.isloading
-              ? CircularProgressIndicator(
-                  color: widget.withBorder ? mainColor : Colors.white,
-                )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    widget.text,
-                    style: TextStyle(
-                        color: widget.withBorder ? mainColor : Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+    return GestureDetector(
+      onTap: () {
+        widget.onPressed();
+      },
+      child: Center(
+        child: Container(
+          height: 50,
+          width: size.width * widget.widthFromScreen,
+          decoration: BoxDecoration(
+              color: widget.withBorder
+                  ? Colors.white
+                  : widget.isActive
+                      ? mainColor
+                      : mainColor.withOpacity(0.5),
+              border: Border.all(
+                  color: widget.isActive ? mainColor : Colors.transparent,
+                  width: 2),
+              borderRadius: BorderRadius.circular(10)),
+          child: Center(
+            child: widget.isloading
+                ? CircularProgressIndicator(
+                    color: widget.withBorder ? mainColor : Colors.white,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      widget.text,
+                      style: TextStyle(
+                          color: widget.withBorder ? Colors.blue : Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
+          ),
         ),
       ),
     );

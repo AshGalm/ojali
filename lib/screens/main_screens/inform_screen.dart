@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/const.dart';
+import '../../providers/dark_theme_provider.dart';
 
 class InformScreen extends StatefulWidget {
   const InformScreen({super.key});
@@ -14,10 +16,24 @@ class InformScreen extends StatefulWidget {
 class _InformScreenState extends State<InformScreen> {
   @override
   Widget build(BuildContext context) {
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
+    //  Theme provider functions variable
+
     TextEditingController infoController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: themeListener.isDark ? darkColor : Colors.white,
+      appBar: AppBar(
+        backgroundColor:
+            themeListener.isDark ? Colors.transparent : Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: themeListener.isDark
+              ? lightColor
+              : darkColor, //change your color here
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -30,8 +46,10 @@ class _InformScreenState extends State<InformScreen> {
               ),
               Text(
                 AppLocalizations.of(context)!.prob,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    color: themeListener.isDark ? lightColor : darkColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
               ),
               const SizedBox(
                 height: 20,
@@ -41,25 +59,30 @@ class _InformScreenState extends State<InformScreen> {
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 13.0, horizontal: 16),
-                    fillColor: mainColor.withOpacity(0.2),
+                    fillColor: themeListener.isDark
+                        ? lightColor.withOpacity(0.2)
+                        : darkColor.withOpacity(0.2),
                     filled: true,
                     hintText: '',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide:
-                            BorderSide(color: mainColor.withOpacity(0.2))),
-                    focusColor: mainColor.withOpacity(0.2),
+                        borderSide: BorderSide(
+                            color: themeListener.isDark
+                                ? lightColor.withOpacity(0.2)
+                                : darkColor.withOpacity(0.2))),
+                    focusColor: appColor.withOpacity(0.2),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(color: Colors.red)),
+                        borderSide:
+                            BorderSide(color: appColor.withOpacity(0.2))),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide:
-                            BorderSide(color: mainColor.withOpacity(0.4))),
+                            BorderSide(color: appColor.withOpacity(0.4))),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide:
-                            BorderSide(color: mainColor.withOpacity(0.2))),
+                            BorderSide(color: appColor.withOpacity(0.2))),
                   ),
                   keyboardType: TextInputType.multiline,
                   maxLines: 4),
@@ -76,14 +99,18 @@ class _InformScreenState extends State<InformScreen> {
               const SizedBox(
                 height: 10,
               ),
-              MainButton(
-                  text: AppLocalizations.of(context)!.back,
-                  withBorder: true,
-                  widthFromScreen: 0.9,
-                  isloading: false,
-                  onPressed: () {},
-                  isActive: true),
-              const Divider(),
+              // MainButton(
+              //     text: AppLocalizations.of(context)!.back,
+              //     withBorder: true,
+              //     widthFromScreen: 0.9,
+              //     isloading: false,
+              //     onPressed: () {},
+              //     isActive: true),
+              Divider(
+                color: themeListener.isDark
+                    ? lightColor.withOpacity(0.2)
+                    : darkColor.withOpacity(0.2),
+              ),
               Text(
                 AppLocalizations.of(context)!.issue,
                 style: const TextStyle(

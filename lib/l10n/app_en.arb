@@ -6,6 +6,7 @@
     "signup":" Signup",
     "login":" Login In",
     "entr":" Enter",
+    "continu":"Continue",
     "name":"Enter your name",
     "phone":"092000000",
     "pass":"*******",
@@ -14,7 +15,8 @@
     "password":"Password",
     "error_name":"Plase Enter your Name!!",
     "error_password":"Plase Enter your password!!",
-    "error_phone":"Plase Enter your phone!!",
+    "error_email":"Plase Enter your Email!!",
+    "error_phone":"Plase Enter!!",
     "error_pass1":"Password must be more than 8 characters",
     "ac_sing": "You have Account ",
     "intro1_title1":"This text is an example",
@@ -43,16 +45,21 @@
     "lang":"language:",
     "location":"Location",
     "email":"Email",
+    "emailex":"example@mail.com",
     "save":"Save",
     "back":"Back",
     "data":"there is no data to show",
     "issue":"you can send us your issue so we can help you with it",
     "det1":"details",
     "det2":"Order now",
-    "det3":"comments"
-
-
-
+    "det3":"comments",
+    "error_pass":"wrong  password please enter the correct one",
+    "reset":"Reset",
+    "forget":"did you forget your password ?",
+    "restpass":"Reset password",
+    "restemail":"Enter your email to receive the confirmation code",
+    "setting":"Setting",
+    "welcome":"Welcome to Ojali Applaction have fun"
 
 
 }

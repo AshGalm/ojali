@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ojali/widgets/clickable_widgets/filter_button.dart';
-import 'package:ojali/widgets/clickable_widgets/food_card.dart';
 import 'package:ojali/widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../helpers/const.dart';
+import '../../providers/dark_theme_provider.dart';
+import '../../widgets/clickable_widgets/food_card.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -12,20 +17,47 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
-  TextEditingController searchController = TextEditingController();
   int seletedTabIndex = 0;
 
-  List filters = [
-    'الكل',
-    'معجنات',
-    'سلاطات',
-    'نواشف',
-  ];
+  TextEditingController searchController = TextEditingController();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  int filterIndex = 0;
+  List filtersList = [];
+
+  // List filters = [
+  //   'الكل',
+  //   'معجنات',
+  //   'سلاطات',
+  //   'نواشف',
+  // ];
+  getCats() {
+    firestore.collection('Categories').get().then((value) {
+      for (var element in value.docs) {
+        filtersList.add(element.data());
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    getCats();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
+    //  Theme provider functions variable
+
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: themeListener.isDark ? darkColor : lightColor,
+      appBar: AppBar(
+        backgroundColor:
+            themeListener.isDark ? Colors.transparent : Colors.transparent,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -48,29 +80,35 @@ class _StoreScreenState extends State<StoreScreen> {
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
                     AppLocalizations.of(context)!.foodtypes,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: themeListener.isDark ? lightColor : darkColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: 60,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListView.builder(
                       shrinkWrap: true,
-                      itemCount: filters.length,
+                      itemCount: filtersList.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return FilterButton(
-                            btnTitle: filters[index],
-                            isSelected: seletedTabIndex == index,
+                            btnTitle:
+                                AppLocalizations.of(context)!.localeName == "ar"
+                                    ? filtersList[index]["name_ar"]
+                                    : filtersList[index]["name_en"],
+                            isSelected: index == filterIndex,
                             onClick: () {
                               setState(() {
-                                seletedTabIndex = index;
+                                filterIndex = index;
                               });
                             });
                       }),
