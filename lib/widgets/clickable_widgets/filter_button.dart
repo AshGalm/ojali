@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ojali/helpers/const.dart';
+
+import '../../helpers/const.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton(
@@ -25,7 +26,7 @@ class FilterButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: mainColor)),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Text(
                 btnTitle,
                 style: TextStyle(

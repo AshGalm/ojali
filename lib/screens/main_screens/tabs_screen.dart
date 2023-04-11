@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ojali/screens/main_screens/store_screen.dart';
+import 'package:provider/provider.dart';
 import '../../helpers/const.dart';
+import '../../providers/dark_theme_provider.dart';
 import 'home_screen.dart';
 import 'setting_screen.dart';
 
@@ -16,19 +18,24 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
+    //  Theme provider functions variable
+
     return Scaffold(
       body: AnimatedSwitcher(
+        // HomeScreen
         duration: animationDuration,
         child: currentIndex == 0
-            ? const SettingScreen()
+            ? const HomeScreen()
             : currentIndex == 1
                 ? const StoreScreen()
                 : currentIndex == 2
-                    ? const HomeScreen()
-                    : const HomeScreen(),
+                    ? const SettingScreen()
+                    : const SettingScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.orangeAccent.withOpacity(0.8),
+        backgroundColor: themeListener.isDark ? darkColor : Colors.transparent,
         elevation: 0,
         currentIndex: currentIndex,
         onTap: (index) {
@@ -36,27 +43,27 @@ class _TabsScreenState extends State<TabsScreen> {
             currentIndex = index;
           });
         },
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.white,
-        items: const [
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey,
+        items: [
           BottomNavigationBarItem(
-              label: 'setting',
+              label: 'Home',
               icon: Icon(
-                Icons.settings,
-                color: Colors.white,
+                Icons.home,
+                color: themeListener.isDark ? lightColor : darkColor,
               )),
           BottomNavigationBarItem(
               label: 'store',
               icon: Icon(
                 Icons.store,
-                color: Colors.white,
+                color: themeListener.isDark ? lightColor : darkColor,
               )),
           BottomNavigationBarItem(
-              label: 'Home',
+              label: 'setting',
               icon: Icon(
-                Icons.home,
-                color: Colors.white,
-              ))
+                Icons.settings,
+                color: themeListener.isDark ? lightColor : darkColor,
+              )),
         ],
       ),
     );

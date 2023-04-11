@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../main_screens/home_screen.dart';
 
 class SingUpScreen extends StatefulWidget {
   const SingUpScreen({super.key});
@@ -12,13 +17,13 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class _SingUpScreenState extends State<SingUpScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool enableLoginBtn = false;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -53,29 +58,13 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFieldWidget(
-                      label: AppLocalizations.of(context)!.username,
-                      controller: phoneController,
-                      hintText: AppLocalizations.of(context)!.name,
+                      label: AppLocalizations.of(context)!.email,
+                      controller: emailController,
+                      hintText: AppLocalizations.of(context)!.email,
                       obSecureText: false,
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return AppLocalizations.of(context)!.error_name;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFieldWidget(
-                      label: AppLocalizations.of(context)!.phonenumber,
-                      controller: phoneController,
-                      hintText: AppLocalizations.of(context)!.phone,
-                      obSecureText: false,
-                      perfix: const Icon(Icons.phone),
-                      validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return AppLocalizations.of(context)!.error_phone;
                         }
                         return null;
                       },
@@ -113,7 +102,25 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             withBorder: false,
                             widthFromScreen: 0.9,
                             isloading: false,
-                            onPressed: () {},
+                            onPressed: () async {
+                              await auth
+                                  .createUserWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text)
+                                  .then((value) async {
+                                firestore.collection('useers').add({
+                                  "uid": value.user!.uid,
+                                  "email": value.user!.uid,
+                                }).then((value) async {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const HomeScreen()),
+                                      (route) => false);
+                                });
+                              });
+                            },
                             isActive: enableLoginBtn),
                         const SizedBox(
                           height: 10,

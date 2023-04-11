@@ -1,8 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ojali/screens/main_screens/inform_screen.dart';
+import 'package:ojali/screens/main_screens/reset_password_screen.dart';
 import 'package:ojali/screens/sub_screens/user_setting_screen.dart';
+import 'package:provider/provider.dart';
 
+import '../../helpers/const.dart';
+import '../../main.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/switch_mode.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -13,20 +20,36 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  bool value = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Scaffold(
+        backgroundColor: themeListener.isDark ? darkColor : lightColor,
         appBar: AppBar(
+          backgroundColor:
+              themeListener.isDark ? Colors.transparent : Colors.transparent,
+          elevation: 0,
           centerTitle: true,
-          title: const Text(
-            'Setting',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          title: Text(
+            AppLocalizations.of(context)!.setting,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          leading: const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Icon(Icons.language),
+          leading: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+              onTap: () {
+                AppLocalizations.of(context)!.localeName == 'ar'
+                    ? MyApp.setLocale(context, const Locale('en'))
+                    : MyApp.setLocale(context, const Locale('ar'));
+              },
+              child: Icon(
+                Icons.language,
+                color: themeListener.isDark ? lightColor : darkColor,
+              ),
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -48,16 +71,30 @@ class _SettingScreenState extends State<SettingScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            AppLocalizations.of(context)!.usermode,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
+                        child: Text(
+                          AppLocalizations.of(context)!.usermode,
+                          style: TextStyle(
+                              color:
+                                  themeListener.isDark ? lightColor : darkColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                       const SwitchMode(),
+
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     themeFunction.switchMode();
+                      //     Provider.of<DarkThemeProvider>(context, listen: true)
+                      //         .switchMode();
+                      //   },
+                      //   child: Icon(
+                      //     themeListener.isDark
+                      //         ? Icons.bedtime_off_sharp
+                      //         : Icons.bedtime,
+                      //     size: 40,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -67,9 +104,10 @@ class _SettingScreenState extends State<SettingScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.person_rounded,
                         size: 40,
+                        color: themeListener.isDark ? lightColor : darkColor,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -80,50 +118,69 @@ class _SettingScreenState extends State<SettingScreen> {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.account,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                color: themeListener.isDark
+                                    ? lightColor
+                                    : darkColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Divider(),
+                Divider(
+                  color: themeListener.isDark
+                      ? lightColor.withOpacity(0.2)
+                      : darkColor.withOpacity(0.2),
+                ),
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.lock_rounded,
                         size: 40,
+                        color: themeListener.isDark ? lightColor : darkColor,
                       ),
-                      const Divider(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const ResetPasswordScreen()));
+                          },
                           child: Text(
                             AppLocalizations.of(context)!.changepass,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                color: themeListener.isDark
+                                    ? lightColor
+                                    : darkColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Divider(),
-
+                Divider(
+                  color: themeListener.isDark
+                      ? lightColor.withOpacity(0.2)
+                      : darkColor.withOpacity(0.2),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.warning_rounded,
                         size: 40,
+                        color: themeListener.isDark ? lightColor : darkColor,
                       ),
-                      const Divider(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
@@ -133,31 +190,51 @@ class _SettingScreenState extends State<SettingScreen> {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.tellisu,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                color: themeListener.isDark
+                                    ? lightColor
+                                    : darkColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Divider(),
+                Divider(
+                  color: themeListener.isDark
+                      ? lightColor.withOpacity(0.2)
+                      : darkColor.withOpacity(0.2),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.output_rounded,
                         size: 40,
+                        color: themeListener.isDark ? lightColor : darkColor,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            FirebaseAuth.instance.signOut();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => const MyApp()),
+                                (route) => false);
+                          },
                           child: Text(
                             AppLocalizations.of(context)!.logout,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                color: themeListener.isDark
+                                    ? lightColor
+                                    : darkColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),

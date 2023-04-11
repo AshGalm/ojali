@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 import 'package:ojali/widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../helpers/const.dart';
+import '../../providers/dark_theme_provider.dart';
 
 class UserSetting extends StatefulWidget {
   const UserSetting({super.key});
@@ -16,8 +20,23 @@ class _UserSettingState extends State<UserSetting> {
     TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController locationController = TextEditingController();
+
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
+    //  Theme provider functions variable
+
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: themeListener.isDark ? darkColor : Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: themeListener.isDark
+              ? lightColor
+              : darkColor, //change your color here
+        ),
+        backgroundColor:
+            themeListener.isDark ? Colors.transparent : Colors.transparent,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -75,13 +94,13 @@ class _UserSettingState extends State<UserSetting> {
                     const SizedBox(
                       height: 10,
                     ),
-                    MainButton(
-                        text: AppLocalizations.of(context)!.back,
-                        withBorder: true,
-                        widthFromScreen: 0.9,
-                        isloading: false,
-                        onPressed: () {},
-                        isActive: true),
+                    // MainButton(
+                    //     text: AppLocalizations.of(context)!.back,
+                    //     withBorder: true,
+                    //     widthFromScreen: 0.9,
+                    //     isloading: false,
+                    //     onPressed: () {},
+                    //     isActive: true),
                   ],
                 ),
               ),

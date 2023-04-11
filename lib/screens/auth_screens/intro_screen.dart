@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:ojali/screens/main_screens/home_screen.dart';
+import 'package:ojali/screens/auth_screens/login_screen.dart';
 
 import '../../helpers/const.dart';
 import '../../widgets/static_widgets/intro_card.dart';
@@ -69,7 +69,8 @@ class _IntroScreenState extends State<IntroScreen> {
               ),
               skip: Text(
                 AppLocalizations.of(context)!.skip,
-                style: TextStyle(color: mainColor, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    color: mainColor, fontWeight: FontWeight.bold),
               ),
               showSkipButton: true,
               dotsDecorator: DotsDecorator(
@@ -83,13 +84,13 @@ class _IntroScreenState extends State<IntroScreen> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                        builder: (context) => const LoginScreen()));
               },
               onDone: () {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                        builder: (context) => const LoginScreen()));
               },
             ),
           ),
