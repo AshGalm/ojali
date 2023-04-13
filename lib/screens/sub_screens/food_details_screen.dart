@@ -1,54 +1,55 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:ojali/providers/prodcut_provider.dart';
+// import 'package:provider/provider.dart';
 
-class FoodDetails extends StatefulWidget {
-  const FoodDetails({super.key});
+class FoodDetails extends StatelessWidget {
+  const FoodDetails({
+    super.key,
+  });
+  // final int productID;
 
-  @override
-  State<FoodDetails> createState() => _FoodDetailsState();
-}
-
-class _FoodDetailsState extends State<FoodDetails> {
-  int filterIndex = 0;
-  List filterList = [
-    'تفاصيل',
-    'اطلب الان',
-    'تعليقات',
-  ];
+  // @override
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
-
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: AppBar(
-            flexibleSpace:
-                Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              TabBar(tabs: [
-                Tab(
-                  text: AppLocalizations.of(context)!.det1,
-                ),
-                Tab(
-                  text: AppLocalizations.of(context)!.det2,
-                ),
-                Tab(
-                  text: AppLocalizations.of(context)!.det3,
-                ),
-              ]),
-            ]),
-          ),
-          body: const TabBarView(children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.abc),
-            Icon(Icons.bike_scooter),
-          ])),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('product details'),
+      ),
+      body: const Text('here'),
     );
   }
 }
 
-
+// code 2
+//  DefaultTabController(
+//       length: 3,
+//       child: Scaffold(
+//           appBar: AppBar(
+//             flexibleSpace:
+//                 Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+//               TabBar(tabs: [
+//                 Tab(
+//                   text: AppLocalizations.of(context)!.det1,
+//                 ),
+//                 Tab(
+//                   text: AppLocalizations.of(context)!.det2,
+//                 ),
+//                 Tab(
+//                   text: AppLocalizations.of(context)!.det3,
+//                 ),
+//               ]),
+//             ]),
+//           ),
+//           body: const TabBarView(children: [
+//             Icon(Icons.directions_car),
+//             Icon(Icons.abc),
+//             Icon(Icons.bike_scooter),
+//           ])),
+//     );
+// code 2
 
 
 // details tab

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ojali/screens/sub_screens/food_details_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/filter_button.dart';
 import 'package:ojali/widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -121,7 +122,17 @@ class _StoreScreenState extends State<StoreScreen> {
                   itemCount: 7,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return const FoodCard();
+                    return FoodCard(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const FoodDetails()));
+                      },
+                      productCat: 'معجنات',
+                      productImage:
+                          'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+                      productName: 'بيتزا اقراص',
+                      productPrice: 'السعر 1.4 ',
+                    );
                   }),
             )
           ],
@@ -130,3 +141,19 @@ class _StoreScreenState extends State<StoreScreen> {
     );
   }
 }
+
+
+
+// GridView.builder(
+//                 shrinkWrap: true,
+//                 itemCount: 2,
+//                 physics: const NeverScrollableScrollPhysics(),
+//                 itemBuilder: (context, index) {
+//                   return const FoodCard();
+//                 },
+//                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                     crossAxisCount: 2,
+//                     childAspectRatio: 1,
+//                     crossAxisSpacing: 8,
+//                     mainAxisSpacing: 8),
+//               ),
