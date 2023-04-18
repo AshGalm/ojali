@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ojali/providers/dark_theme_provider.dart';
+import 'package:ojali/screens/main_screens/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../helpers/const.dart';
@@ -60,12 +61,18 @@ class _HomeScreenState extends State<HomeScreen> {
         //     ),
         //   ),
         // ],
-        leading: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Icon(
-            Icons.shopping_cart,
-            size: 40,
-            color: themeListener.isDark ? Colors.white : Colors.black,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CartScreen()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Icon(
+              Icons.shopping_cart,
+              size: 40,
+              color: themeListener.isDark ? Colors.white : Colors.black,
+            ),
           ),
         ),
       ),

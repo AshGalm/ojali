@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const Color mainColor = Color(0xDF2254C7);
 const Color darkColor = Color(0xDF0B111E);
 const Color appColor = Color.fromARGB(255, 104, 56, 30);
+const Color subColor = Color.fromARGB(255, 196, 107, 11);
 const Color lightColor = Color(0xDFFFFFFF);
 Duration animationDuration = const Duration(milliseconds: 200);
 
