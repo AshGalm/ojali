@@ -59,7 +59,9 @@
     "restpass":"Reset password",
     "restemail":"Enter your email to receive the confirmation code",
     "setting":"Setting",
-    "welcome":"Welcome to Ojali Applaction have fun"
+    "welcome":"Welcome to Ojali Applaction have fun",
+    "cart":"Cart",
+    "caut":"Total amount"
 
 
 }

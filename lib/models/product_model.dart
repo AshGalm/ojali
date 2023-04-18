@@ -2,25 +2,21 @@ import 'dart:convert';
 
 class ProductModel {
   ProductModel({
-    required this.id,
-    required this.titleAr,
-    required this.titleEn,
-    required this.thumbnail,
-    required this.categoryAr,
-    required this.categoryEn,
-    required this.descriptionAr,
-    required this.descriptionEn,
+    required this.nameAr,
+    required this.nameEn,
+    required this.imageUrl,
+    required this.categoryUid,
+    required this.desAr,
+    required this.desEn,
     required this.price,
   });
 
-  int id;
-  String titleAr;
-  String titleEn;
-  String thumbnail;
-  String categoryAr;
-  String categoryEn;
-  String descriptionAr;
-  String descriptionEn;
+  String nameAr;
+  String nameEn;
+  String imageUrl;
+  String categoryUid;
+  String desAr;
+  String desEn;
   String price;
 
   factory ProductModel.fromRawJson(String str) =>
@@ -29,26 +25,22 @@ class ProductModel {
   String toRawJson() => json.encode(toJson());
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        id: json["id"],
-        titleAr: json["title_ar"],
-        titleEn: json["title_en"],
-        thumbnail: json["thumbnail"],
-        categoryAr: json["category_ar"],
-        categoryEn: json["category_en"],
-        descriptionAr: json["description_ar"],
-        descriptionEn: json["description_en"],
+        nameAr: json["name_ar"],
+        nameEn: json["name_en"],
+        imageUrl: json["imageUrl"],
+        categoryUid: json["category_uid"],
+        desAr: json["des_ar"],
+        desEn: json["des_en"],
         price: json["price"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title_ar": titleAr,
-        "title_en": titleEn,
-        "thumbnail": thumbnail,
-        "category_ar": categoryAr,
-        "category_en": categoryEn,
-        "description_ar": descriptionAr,
-        "description_en": descriptionEn,
+        "name_ar": nameAr,
+        "name_en": nameEn,
+        "image_url": imageUrl,
+        "category_uid": categoryUid,
+        "des_ar": desAr,
+        "des_en": desEn,
         "price": price,
       };
 }
