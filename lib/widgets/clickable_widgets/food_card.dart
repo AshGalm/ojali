@@ -30,7 +30,7 @@ class FoodCard extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: GestureDetector(
                 onTap: () {
-                  onTap;
+                  onTap();
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch, // add this
