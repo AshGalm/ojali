@@ -7,10 +7,10 @@ class FoodCard extends StatelessWidget {
       required this.productName,
       required this.onTap,
       required this.productPrice,
-      required this.productCat});
+      this.productCat});
   final String productImage;
   final String productName;
-  final String productCat;
+  final String? productCat;
   final String productPrice;
   final Function onTap;
 
@@ -55,7 +55,7 @@ class FoodCard extends StatelessWidget {
                       ),
                       subtitle: Text(
                         // 'معجنات',
-                        productCat,
+                        productCat!,
                         style: const TextStyle(
                             color: Colors.grey, fontWeight: FontWeight.w500),
                       ),

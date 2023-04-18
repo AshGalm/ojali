@@ -106,52 +106,46 @@ class _StoreScreenState extends State<StoreScreen> {
               ),
               SizedBox(
                 height: 60,
-                child: Row(
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: productsProvider.categories.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return FilterButton(
-                          isSelected: index == filterIndex,
-                          onClick: () async {
-                            filterIndex = index;
-                            await firestore
-                                .collection('Categories')
-                                .where('name_en',
-                                    isEqualTo: productsProvider
-                                        .categories[index].nameEn)
-                                .get()
-                                .then((value) {
-                              selectedCatUid = value.docs[0].id;
-                            });
-                            if (kDebugMode) {
-                              print(selectedCatUid);
-                            }
-                            setState(() {});
-                            productsFunctions
-                                .getProcuctByCateUID(selectedCatUid!);
-                          },
-                          btnTitle:
-                              AppLocalizations.of(context)!.localeName == "ar"
-                                  ? productsProvider.categories[index].nameAr
-                                  : productsProvider.categories[index].nameEn,
-                        );
-                        // FilterButton(
-                        // btnTitle:
-                        //     AppLocalizations.of(context)!.localeName == "ar"
-                        //         ? filtersList[index]["name_ar"]
-                        //         : filtersList[index]["name_en"],
-                        // isSelected: index == filterIndex,
-                        // onClick: () {
-                        //   setState(() {
-                        //     filterIndex = index;
-                        //   });
-                        // });
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: productsProvider.categories.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return FilterButton(
+                      isSelected: index == filterIndex,
+                      onClick: () async {
+                        filterIndex = index;
+                        await firestore
+                            .collection('Categories')
+                            .where('name_en',
+                                isEqualTo:
+                                    productsProvider.categories[index].nameEn)
+                            .get()
+                            .then((value) {
+                          selectedCatUid = value.docs[0].id;
+                        });
+                        if (kDebugMode) {
+                          print(selectedCatUid);
+                        }
+                        setState(() {});
+                        productsFunctions.getProcuctByCateUID(selectedCatUid!);
                       },
-                    ),
-                  ],
+                      btnTitle: AppLocalizations.of(context)!.localeName == "ar"
+                          ? productsProvider.categories[index].nameAr
+                          : productsProvider.categories[index].nameEn,
+                    );
+                    // FilterButton(
+                    // btnTitle:
+                    //     AppLocalizations.of(context)!.localeName == "ar"
+                    //         ? filtersList[index]["name_ar"]
+                    //         : filtersList[index]["name_en"],
+                    // isSelected: index == filterIndex,
+                    // onClick: () {
+                    //   setState(() {
+                    //     filterIndex = index;
+                    //   });
+                    // });
+                  },
                 ),
               ),
               SizedBox(
@@ -165,7 +159,16 @@ class _StoreScreenState extends State<StoreScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return FoodCard(
-                            productModel: productsProvider.prdouctList[index],
+                            // productModel: productsProvider.prdouctList[index],
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const FoodDetails()));
+                            },
+                            // productCat: 'معجنات',
+                            productImage:
+                                'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+                            productName: 'بيتزا اقراص',
+                            productPrice: 'السعر 1.4 ',
                           );
                         }),
               )
