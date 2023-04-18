@@ -1,19 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ojali/models/product_model.dart';
-import 'package:ojali/screens/main_screens/store_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FoodCard extends StatefulWidget {
-  const FoodCard({super.key, required this.productModel});
+class FoodCard extends StatelessWidget {
+  const FoodCard(
+      {super.key,
+      required this.productImage,
+      required this.productName,
+      required this.onTap,
+      required this.productPrice,
+      required this.productCat});
+  final String productImage;
+  final String productName;
+  final String productCat;
+  final String productPrice;
+  final Function onTap;
 
-  final ProductModel productModel;
-
-  @override
-  State<FoodCard> createState() => _FoodCardState();
-}
-
-class _FoodCardState extends State<FoodCard> {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
@@ -22,19 +22,16 @@ class _FoodCardState extends State<FoodCard> {
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
           borderRadius: const BorderRadius.only(),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => const StoreScreen()));
-            },
-            child: Container(
-              margin: const EdgeInsets.only(
-                  right: 25.0, left: 25.0, top: 5, bottom: 5),
-              child: Card(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          child: Container(
+            margin: const EdgeInsets.only(
+                right: 25.0, left: 25.0, top: 5, bottom: 5),
+            child: Card(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              child: GestureDetector(
+                onTap: () {
+                  onTap();
+                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch, // add this
                   children: [
@@ -45,7 +42,7 @@ class _FoodCardState extends State<FoodCard> {
                       ),
                       child: Image.network(
                           // 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                          widget.productModel.imageUrl,
+                          productImage,
                           // width: 300,
                           height: 150,
                           fit: BoxFit.fill),
@@ -53,20 +50,18 @@ class _FoodCardState extends State<FoodCard> {
                     ListTile(
                       title: Text(
                         // 'بيتزا اقراص',
-                        AppLocalizations.of(context)!.localeName == 'ar'
-                            ? widget.productModel.nameAr
-                            : widget.productModel.nameEn,
+                        productName,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle: const Text(
+                      subtitle: Text(
                         // 'معجنات',
-                        'cat',
-                        style: TextStyle(
+                        productCat,
+                        style: const TextStyle(
                             color: Colors.grey, fontWeight: FontWeight.w500),
                       ),
                       trailing: Text(
                         // 'السعر 1.5 ',
-                        widget.productModel.price,
+                        productPrice,
                         style: const TextStyle(
                             color: Colors.grey, fontWeight: FontWeight.w500),
                       ),
