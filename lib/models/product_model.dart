@@ -27,7 +27,7 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         nameAr: json["name_ar"],
         nameEn: json["name_en"],
-        imageUrl: json["imageUrl"],
+        imageUrl: json["image_url"],
         categoryUid: json["category_uid"],
         desAr: json["des_ar"],
         desEn: json["des_en"],
