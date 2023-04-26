@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 
-class SmallCardWidget extends StatelessWidget {
-  const SmallCardWidget({super.key});
+import '../../models/product_model.dart';
 
+class SmallCardWidget extends StatefulWidget {
+  const SmallCardWidget(
+      {super.key, required this.productModel, required this.onTap});
+  final ProductModel productModel;
+  final Function onTap;
+
+  @override
+  State<SmallCardWidget> createState() => _SmallCardWidgetState();
+}
+
+class _SmallCardWidgetState extends State<SmallCardWidget> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -11,16 +21,22 @@ class SmallCardWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              height: size.width * 0.3,
-              decoration: const BoxDecoration(boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.black, blurRadius: 12.0, offset: Offset(7, 7))
-              ]),
-              child: Image.network(
-                  'https://images.unsplash.com/photo-1539136788836-5699e78bfc75?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'),
+          GestureDetector(
+            onTap: () {
+              widget.onTap();
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                height: size.width * 0.3,
+                decoration: const BoxDecoration(boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.black,
+                      blurRadius: 12.0,
+                      offset: Offset(7, 7))
+                ]),
+                child: Image.network(widget.productModel.imageUrl),
+              ),
             ),
           )
         ],

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:ojali/main.dart';
 import 'package:ojali/screens/auth_screens/sing_up_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/const.dart';
+import '../../providers/dark_theme_provider.dart';
 import '../../widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -30,7 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+
     return Scaffold(
+      backgroundColor: themeListener.isDark ? darkColor : Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: SingleChildScrollView(
@@ -99,10 +104,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           AppLocalizations.of(context)!.forget,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: themeListener.isDark
+                                  ? lightColor
+                                  : darkColor),
                         ),
                         GestureDetector(
                           onTap: () {

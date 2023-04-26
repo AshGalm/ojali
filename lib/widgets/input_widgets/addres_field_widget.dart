@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ojali/helpers/const.dart';
 import 'package:provider/provider.dart';
 
-import '../../helpers/const.dart';
 import '../../providers/dark_theme_provider.dart';
 
-class TextFieldWidget extends StatefulWidget {
-  const TextFieldWidget(
+class AddresFieldWidget extends StatefulWidget {
+  const AddresFieldWidget(
       {super.key,
       required this.controller,
       this.label,
       required this.hintText,
-      required this.validator,
       required this.obSecureText,
-      this.perfix});
+      this.perfix,
+      required this.validator});
   final TextEditingController controller;
   final String? label;
   final String hintText;
@@ -21,15 +21,13 @@ class TextFieldWidget extends StatefulWidget {
   final FormFieldValidator<String?> validator;
 
   @override
-  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+  State<AddresFieldWidget> createState() => _AddresFieldWidgetState();
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget> {
+class _AddresFieldWidgetState extends State<AddresFieldWidget> {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-
-    //  Theme provider functions variable
 
     return Column(
       children: [
@@ -90,7 +88,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                       color: themeListener.isDark
                           ? appColor.withOpacity(0.2)
                           : lightColor.withOpacity(0.2))),
-            ))
+            ),
+            keyboardType: TextInputType.multiline,
+            maxLines: 4)
       ],
     );
   }

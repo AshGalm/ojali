@@ -165,7 +165,10 @@ class _StoreScreenState extends State<StoreScreen> {
                             productModel: productsProvider.prdouctList[index],
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const FoodDetails()));
+                                  builder: (context) => FoodDetails(
+                                        productModel:
+                                            productsProvider.prdouctList[index],
+                                      )));
                             },
                             // productCat: 'معجنات',
                           );

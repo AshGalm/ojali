@@ -61,7 +61,19 @@
     "setting":"Setting",
     "welcome":"Welcome to Ojali Applaction have fun",
     "cart":"Cart",
-    "caut":"Total amount"
-
+    "caut":"Total amount",
+    "price":"Price",
+    "add_cart":"Add to Cart",
+    "ly":"LY",
+    "open_time":"Open Time: ",
+    "am":"am ",
+    "pm":" pm ",
+    "detl":"Details: ",
+    "contect":"Contect",
+    "title":"Title",
+    "issus_detils":"Problem details: ",
+    "suc":"Data has been sent successfully",
+    "re":"You will be redirected to the main interface after 10 seconds",
+    "rep":"Report"
 
 }

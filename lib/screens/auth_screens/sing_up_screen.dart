@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ojali/screens/main_screens/tabs_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -17,6 +18,7 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class _SingUpScreenState extends State<SingUpScreen> {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool enableLoginBtn = false;
@@ -54,6 +56,21 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   ),
                   const SizedBox(
                     height: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFieldWidget(
+                      label: AppLocalizations.of(context)!.name,
+                      controller: nameController,
+                      hintText: AppLocalizations.of(context)!.name,
+                      obSecureText: false,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return AppLocalizations.of(context)!.error_name;
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -108,15 +125,19 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                       email: emailController.text,
                                       password: passwordController.text)
                                   .then((value) async {
-                                firestore.collection('useers').add({
+                                firestore
+                                    .collection('users')
+                                    .doc(value.user!.uid)
+                                    .set({
                                   "uid": value.user!.uid,
-                                  "email": value.user!.uid,
+                                  "email": emailController.text,
+                                  "name": nameController.text,
                                 }).then((value) async {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) =>
-                                              const HomeScreen()),
+                                              const TabsScreen()),
                                       (route) => false);
                                 });
                               });
