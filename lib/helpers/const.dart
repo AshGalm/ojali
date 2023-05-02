@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 const Color mainColor = Color(0xDF2254C7);
 const Color darkColor = Color(0xDF0B111E);
-const Color appColor = Color.fromARGB(255, 104, 56, 30);
+const Color appColor = Color(0xFF68381E);
 const Color subColor = Color.fromARGB(255, 196, 107, 11);
 const Color lightColor = Color(0xDFFFFFFF);
 const Color instColor = Color.fromARGB(254, 218, 117, 255);
@@ -20,3 +21,12 @@ MaterialColor mainAppColor = const MaterialColor(0xDF2254C7, <int, Color>{
   800: Color(0xDF2254C7),
   900: Color(0xDF2254C7),
 });
+
+void showMessage(String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}

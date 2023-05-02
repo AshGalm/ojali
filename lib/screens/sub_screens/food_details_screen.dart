@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ojali/providers/cart_provider.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 
 import '../../helpers/const.dart';
@@ -29,6 +30,8 @@ class _FoodDetailsState extends State<FoodDetails> {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     // final productsFunctions =
     // Provider.of<ProductProvider>(context, listen: false);
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    // final cartFunctions = Provider.of<CartProvider>(context, listen: false);
 
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : Colors.white,
@@ -168,7 +171,13 @@ class _FoodDetailsState extends State<FoodDetails> {
                               withBorder: false,
                               widthFromScreen: 0.5,
                               isloading: false,
-                              onPressed: () {})
+                              onPressed: () {
+                                ProductModel productModel = widget.productModel;
+                                cartProvider.addCartProduct(productModel);
+                                showMessage(
+                                  AppLocalizations.of(context)!.add,
+                                );
+                              })
                         ],
                       ),
                     )

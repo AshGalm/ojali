@@ -68,6 +68,14 @@ class _StoreScreenState extends State<StoreScreen> {
         backgroundColor:
             themeListener.isDark ? Colors.transparent : Colors.transparent,
         elevation: 0,
+        centerTitle: true,
+        title: Text(
+          AppLocalizations.of(context)!.store,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: themeListener.isDark ? appColor : darkColor),
+        ),
       ),
       body: SingleChildScrollView(
         child: Consumer<ProductProvider>(
@@ -153,8 +161,11 @@ class _StoreScreenState extends State<StoreScreen> {
               ),
               SizedBox(
                 child: productsProvider.prdouctList.isEmpty
-                    ? const Center(
-                        child: Text('No DATA'),
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(AppLocalizations.of(context)!.nodata),
+                        ),
                       )
                     : ListView.builder(
                         shrinkWrap: true,

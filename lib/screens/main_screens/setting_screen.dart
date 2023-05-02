@@ -35,7 +35,7 @@ class _SettingScreenState extends State<SettingScreen> {
           centerTitle: true,
           title: Text(
             AppLocalizations.of(context)!.setting,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           leading: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -61,8 +61,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 SizedBox(
                   height: size.width * 0.5,
                   width: size.width * 0.5,
-                  child: Image.network(
-                    'https://www.linkpicture.com/q/Usability-testing-bro_1.png',
+                  child: Image.asset(
+                    'assets/setting.png',
                   ),
                 ),
                 Padding(

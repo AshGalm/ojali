@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts:
   pin_code_fields:
+  fluttertoast: ^8.2.1
   url_launcher: ^6.1.10
   font_awesome_flutter: ^10.4.0
   shared_preferences:

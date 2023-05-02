@@ -12,12 +12,14 @@ class TextFieldWidget extends StatefulWidget {
       required this.hintText,
       required this.validator,
       required this.obSecureText,
+      this.onchange,
       this.perfix});
   final TextEditingController controller;
   final String? label;
   final String hintText;
   final bool obSecureText;
   final Widget? perfix;
+  final Function? onchange;
   final FormFieldValidator<String?> validator;
 
   @override
@@ -53,6 +55,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             style: TextStyle(
               color: themeListener.isDark ? lightColor : darkColor,
             ),
+            onChanged: (value) {
+              widget.onchange!();
+            },
             controller: widget.controller,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: widget.validator,

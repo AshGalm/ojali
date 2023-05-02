@@ -1,5 +1,6 @@
 {
-
+    "home":"Home",
+    "store":"Store",
     "next":"Next",
     "skip":"Skip",
     "logout":" logout",
@@ -38,6 +39,15 @@
     "nawashif":"Nawashif",
     "prob":"Got a problem?",
     "send":"Send",
+
+    "nofood":"There's No Products",
+    "choose":"You can choose products from the store",
+    "add":"Add To Cart ",
+    "remove":"Removed From Cart",
+
+    "shope":"Shop online and order your favorite kind of our products",
+    "shope2":"The application makes the process of selecting items very easy, knowing the details of the item and its price    ",
+    "shope3":"Control your shopping cart directly with ease",
     "account":"Edit account information",
     "changepass":"Change the password",
     "usermode":"night mode",
@@ -74,6 +84,8 @@
     "issus_detils":"Problem details: ",
     "suc":"Data has been sent successfully",
     "re":"You will be redirected to the main interface after 10 seconds",
-    "rep":"Report"
+    "rep":"Report",
+    "nodata":"No Data Find "
+
 
 }
