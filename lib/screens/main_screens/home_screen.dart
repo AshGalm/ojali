@@ -126,29 +126,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     ]),
                     SizedBox(
                       height: 100,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: productsProvider.prdouctList.length,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return SmallCardWidget(
-                                productModel:
-                                    productsProvider.prdouctList[index],
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => FoodDetails(
-                                            productModel: productsProvider
-                                                .prdouctList[index],
-                                          )));
-                                },
-                              );
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: productsProvider.prdouctList.length,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return SmallCardWidget(
+                            productModel: productsProvider.prdouctList[index],
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => FoodDetails(
+                                        productModel:
+                                            productsProvider.prdouctList[index],
+                                      )));
                             },
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(

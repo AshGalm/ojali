@@ -61,7 +61,6 @@ class _StoreScreenState extends State<StoreScreen> {
     final productsFunctions =
         Provider.of<ProductProvider>(context, listen: false);
     //  Theme provider functions variable
-
     return Scaffold(
       backgroundColor: themeListener.isDark ? darkColor : lightColor,
       appBar: AppBar(
@@ -86,6 +85,9 @@ class _StoreScreenState extends State<StoreScreen> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextFieldWidget(
+                    onchange: () {
+                      productsFunctions.searchProduct();
+                    },
                     controller: searchController,
                     hintText: AppLocalizations.of(context)!.search,
                     perfix: const Icon(Icons.search),
