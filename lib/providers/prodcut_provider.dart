@@ -21,7 +21,6 @@ class ProductProvider with ChangeNotifier {
     getCats();
     getAllProducts();
     latesProduct();
-    searchProduct();
   }
 
   // Get all Categories Data
@@ -68,6 +67,7 @@ class ProductProvider with ChangeNotifier {
 
   //
 
+//
   getProcuctByCateUID(String catUID) async {
     isloading = true;
     notifyListeners();
@@ -82,14 +82,6 @@ class ProductProvider with ChangeNotifier {
       }
       isloading = false;
       notifyListeners();
-    });
-  }
-
-  searchProduct() async {
-    isloading = true;
-    notifyListeners();
-    await firestore.collection('products').where("name_ar").get().then((value) {
-      prdouctList.clear();
     });
   }
 

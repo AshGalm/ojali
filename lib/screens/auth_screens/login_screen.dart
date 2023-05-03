@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool enableLoginBtn = false;
+  bool showPassword = true;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -72,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       // perfix: const Icon(Icons.phone),
                       validator: (String? value) {
                         if (value!.isEmpty) {
-                          return AppLocalizations.of(context)!.error_phone;
+                          return AppLocalizations.of(context)!.error_email;
                         }
                         return null;
                       },
@@ -84,8 +85,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       label: AppLocalizations.of(context)!.password,
                       controller: passwordController,
                       hintText: AppLocalizations.of(context)!.pass,
-                      obSecureText: false,
-                      perfix: const Icon(Icons.remove_red_eye_outlined),
+                      obSecureText: showPassword,
+                      perfix: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                        child: Icon(showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return AppLocalizations.of(context)!.error_password;

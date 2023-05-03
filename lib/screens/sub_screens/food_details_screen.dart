@@ -174,9 +174,8 @@ class _FoodDetailsState extends State<FoodDetails> {
                               onPressed: () {
                                 ProductModel productModel = widget.productModel;
                                 cartProvider.addCartProduct(productModel);
-                                showMessage(
-                                  AppLocalizations.of(context)!.add,
-                                );
+                                showMessage(AppLocalizations.of(context)!.add,
+                                    Colors.green);
                               })
                         ],
                       ),

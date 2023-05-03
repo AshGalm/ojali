@@ -22,10 +22,11 @@ MaterialColor mainAppColor = const MaterialColor(0xDF2254C7, <int, Color>{
   900: Color(0xDF2254C7),
 });
 
-void showMessage(String message) {
+// Toast
+void showMessage(String message, Color myColor) {
   Fluttertoast.showToast(
     msg: message,
-    backgroundColor: Colors.red,
+    backgroundColor: myColor,
     textColor: Colors.white,
     fontSize: 16.0,
   );

@@ -12,35 +12,26 @@ class UserProvider with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   // List of Data
-  List<UserModel> user = [];
+  List<UserModel> userList = [];
 
   initUser() {
-    getUsers();
+    getInfo();
   }
 
-  getUsers() async {
-    await firestore.collection('user').get().then((value) {
-      for (var item in value.docs) {
-        user.add(UserModel.fromJson(item.data()));
-      }
+  Future<void> getInfo() async {
+    try {
+      isloading = true;
       notifyListeners();
-    });
-  }
-
-  getUserByUid(String userUid) async {
-    isloading = true;
-    notifyListeners();
-    await firestore
-        .collection('user')
-        .where('uid', isEqualTo: userUid)
-        .get()
-        .then((value) {
-      user.clear();
-      for (var item in value.docs) {
-        user.add(UserModel.fromJson(item.data()));
-      }
+      final value =
+          await firestore.collection('users').doc(auth.currentUser?.uid).get();
+      userList.clear();
+      userList.add(UserModel.fromJson(value.data()!));
+    } catch (e) {
+      isFailed = true;
+      print('Error fetching user data: $e');
+    } finally {
       isloading = false;
       notifyListeners();
-    });
+    }
   }
 }

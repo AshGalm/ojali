@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ojali/providers/user_provider.dart';
 import 'package:ojali/screens/main_screens/inform_screen.dart';
 import 'package:ojali/screens/main_screens/reset_password_screen.dart';
 import 'package:ojali/screens/sub_screens/user_setting_screen.dart';
@@ -25,6 +26,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+    final userDetajils = Provider.of<UserProvider>(context, listen: true);
 
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : lightColor,
@@ -65,6 +67,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     'assets/setting.png',
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

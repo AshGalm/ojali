@@ -56,12 +56,13 @@ class _CartWidgetState extends State<CartWidget> {
               ],
             ),
             trailing: IconButton(
-                icon: const Icon(Icons.cancel),
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
                 onPressed: () {
                   cartProvider.removeCartProduct(widget.productModel);
-                  showMessage(
-                    AppLocalizations.of(context)!.remove,
-                  );
+                  showMessage(AppLocalizations.of(context)!.remove, Colors.red);
                 }),
           ),
         ));

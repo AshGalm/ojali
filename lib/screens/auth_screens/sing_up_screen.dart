@@ -22,6 +22,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool enableLoginBtn = false;
+  bool showPassword = true;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -81,7 +82,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       obSecureText: false,
                       validator: (String? value) {
                         if (value!.isEmpty) {
-                          return AppLocalizations.of(context)!.error_name;
+                          return AppLocalizations.of(context)!.error_email;
                         }
                         return null;
                       },
@@ -93,8 +94,17 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       label: AppLocalizations.of(context)!.password,
                       controller: passwordController,
                       hintText: AppLocalizations.of(context)!.pass,
-                      obSecureText: false,
-                      perfix: const Icon(Icons.remove_red_eye_outlined),
+                      obSecureText: showPassword,
+                      perfix: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                        child: Icon(showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return AppLocalizations.of(context)!.error_password;
@@ -147,7 +157,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           height: 10,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.ac_sing,
+                          AppLocalizations.of(context)!.ac_log,
                           style: const TextStyle(
                               fontSize: 13, fontWeight: FontWeight.w700),
                         ),
