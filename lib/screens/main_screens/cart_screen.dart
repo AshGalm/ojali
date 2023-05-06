@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/const.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/cart_widget.dart';
+import 'order_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -110,7 +111,9 @@ class _CartScreenState extends State<CartScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: themeListener.isDark ? subColor : Colors.green,
+                        color: themeListener.isDark
+                            ? subColor
+                            : Colors.blueAccent.withOpacity(0.5),
                       ),
                       padding: const EdgeInsets.all(24),
                       child: Row(
@@ -130,7 +133,7 @@ class _CartScreenState extends State<CartScreen> {
                               const SizedBox(height: 8),
                               // total price
                               const Text(
-                                'calculateTotal',
+                                '30',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -147,18 +150,24 @@ class _CartScreenState extends State<CartScreen> {
                               borderRadius: BorderRadius.circular(28),
                             ),
                             padding: const EdgeInsets.all(15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.next,
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ],
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => OrderScreen()));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.next,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

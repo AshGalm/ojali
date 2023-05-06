@@ -86,7 +86,10 @@
     "suc":"Data has been sent successfully",
     "re":"You will be redirected to the main interface after 10 seconds",
     "rep":"Report",
-    "nodata":"No Data Find "
+    "nodata":"No Data Find ",
+    "order":"Order",
+    "address":"Address",
+    "user_data":"Please enter reservation data:"
 
 
 }
