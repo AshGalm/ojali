@@ -25,6 +25,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+    // final userDetajils = Provider.of<UserProvider>(context, listen: true);
 
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : lightColor,
@@ -35,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
           centerTitle: true,
           title: Text(
             AppLocalizations.of(context)!.setting,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           leading: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -61,10 +62,11 @@ class _SettingScreenState extends State<SettingScreen> {
                 SizedBox(
                   height: size.width * 0.5,
                   width: size.width * 0.5,
-                  child: Image.network(
-                    'https://www.linkpicture.com/q/Usability-testing-bro_1.png',
+                  child: Image.asset(
+                    'assets/setting.png',
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

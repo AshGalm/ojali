@@ -5,8 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojali/providers/branches_provider.dart';
+import 'package:ojali/providers/cart_provider.dart';
 import 'package:ojali/providers/dark_theme_provider.dart';
 import 'package:ojali/providers/prodcut_provider.dart';
+import 'package:ojali/providers/user_provider.dart';
+import 'package:ojali/screens/auth_screens/intro_screen.dart';
 import 'package:ojali/screens/main_screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,7 +85,22 @@ class _MyAppState extends State<MyApp> {
           create: (_) {
             return ProductProvider();
           },
-        )
+        ),
+        ChangeNotifierProvider<BranchesProvider>(
+          create: (_) {
+            return BranchesProvider();
+          },
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (_) {
+            return UserProvider();
+          },
+        ),
+        ChangeNotifierProvider<CartProvider>(
+          create: (_) {
+            return CartProvider();
+          },
+        ),
       ],
       child: Consumer<DarkThemeProvider>(builder: (context, themeListener, _) {
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -114,7 +133,7 @@ class _MyAppState extends State<MyApp> {
           ),
           home: auth.currentUser != null
               ? const TabsScreen()
-              : const TabsScreen(),
+              : const IntroScreen(),
         );
       }),
     );

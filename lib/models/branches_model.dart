@@ -1,46 +1,54 @@
+// To parse this JSON data, do
+//
+//     final branchesModel = branchesModelFromJson(jsonString);
+
 import 'dart:convert';
 
-class ProductModel {
-  ProductModel({
+class BranchesModel {
+  BranchesModel({
     required this.nameAr,
     required this.nameEn,
     required this.imageUrl,
-    required this.categoryUid,
     required this.desAr,
     required this.desEn,
-    required this.price,
+    required this.openTime,
+    required this.phone,
+    required this.phone2,
   });
 
   String nameAr;
   String nameEn;
   String imageUrl;
-  String categoryUid;
   String desAr;
   String desEn;
-  String price;
+  String openTime;
+  String phone;
+  String phone2;
 
-  factory ProductModel.fromRawJson(String str) =>
-      ProductModel.fromJson(json.decode(str));
+  factory BranchesModel.fromRawJson(String str) =>
+      BranchesModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+  factory BranchesModel.fromJson(Map<String, dynamic> json) => BranchesModel(
         nameAr: json["name_ar"],
         nameEn: json["name_en"],
         imageUrl: json["image_url"],
-        categoryUid: json["category_uid"],
         desAr: json["des_ar"],
         desEn: json["des_en"],
-        price: json["price"],
+        openTime: json["open_time"],
+        phone: json["phone"],
+        phone2: json["phone2"],
       );
 
   Map<String, dynamic> toJson() => {
         "name_ar": nameAr,
         "name_en": nameEn,
         "image_url": imageUrl,
-        "category_uid": categoryUid,
         "des_ar": desAr,
         "des_en": desEn,
-        "price": price,
+        "open_time": openTime,
+        "phone": phone,
+        "phone2": phone2,
       };
 }

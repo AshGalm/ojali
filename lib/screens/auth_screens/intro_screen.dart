@@ -20,15 +20,15 @@ class _IntroScreenState extends State<IntroScreen> {
     List<Widget> listPagesViewModel = [
       IntroCard(
         image: 'assets/introscreen/intro1.png',
-        title: AppLocalizations.of(context)!.intro1_title1,
+        title: AppLocalizations.of(context)!.shope,
       ),
       IntroCard(
         image: 'assets/introscreen/intro2.png',
-        title: AppLocalizations.of(context)!.intro1_title2,
+        title: AppLocalizations.of(context)!.shope2,
       ),
       IntroCard(
         image: 'assets/introscreen/intro3.png',
-        title: AppLocalizations.of(context)!.intro1_title3,
+        title: AppLocalizations.of(context)!.shope3,
       ),
     ];
 
@@ -43,7 +43,7 @@ class _IntroScreenState extends State<IntroScreen> {
               rawPages: listPagesViewModel,
               done: Container(
                 decoration: BoxDecoration(
-                    color: mainColor, borderRadius: BorderRadius.circular(10)),
+                    color: appColor, borderRadius: BorderRadius.circular(10)),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
@@ -55,7 +55,7 @@ class _IntroScreenState extends State<IntroScreen> {
               ),
               next: Container(
                 decoration: BoxDecoration(
-                    color: mainColor, borderRadius: BorderRadius.circular(10)),
+                    color: appColor, borderRadius: BorderRadius.circular(10)),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
@@ -70,7 +70,7 @@ class _IntroScreenState extends State<IntroScreen> {
               skip: Text(
                 AppLocalizations.of(context)!.skip,
                 style: const TextStyle(
-                    color: mainColor, fontWeight: FontWeight.bold),
+                    color: appColor, fontWeight: FontWeight.bold),
               ),
               showSkipButton: true,
               dotsDecorator: DotsDecorator(
@@ -78,8 +78,8 @@ class _IntroScreenState extends State<IntroScreen> {
                   activeSize: const Size(30.0, 6.0),
                   activeShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
-                  color: mainColor.withOpacity(0.5),
-                  activeColor: mainColor),
+                  color: appColor.withOpacity(0.5),
+                  activeColor: appColor),
               onSkip: () {
                 Navigator.pushReplacement(
                     context,

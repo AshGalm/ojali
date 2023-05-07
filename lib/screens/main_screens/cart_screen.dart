@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:ojali/providers/cart_provider.dart';
+import 'package:ojali/screens/main_screens/store_screen.dart';
+import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/const.dart';
 import '../../providers/dark_theme_provider.dart';
+import '../../widgets/cart_widget.dart';
+import 'order_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -15,6 +20,9 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
+    CartProvider cartProvider = Provider.of<CartProvider>(
+      context,
+    );
 
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : lightColor,
@@ -42,101 +50,130 @@ class _CartScreenState extends State<CartScreen> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: ListView.builder(
-                  itemCount: 2,
-                  padding: const EdgeInsets.all(12),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(8)),
-                          child: ListTile(
-                            leading: Image.network(
-                              'https://images.unsplash.com/photo-1539136788836-5699e78bfc75?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-                              height: 36,
+                child: cartProvider.getCartProductList.isEmpty
+                    ? Center(
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/nofood.png',
                             ),
-                            title: const Text(
-                              'title',
-                              style: TextStyle(fontSize: 18),
+                            Text(
+                              AppLocalizations.of(context)!.nofood,
+                              style: TextStyle(
+                                  color: themeListener.isDark
+                                      ? appColor
+                                      : darkColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            subtitle: const Text(
-                              'Categories',
-                              style: TextStyle(fontSize: 12),
+                            Text(
+                              AppLocalizations.of(context)!.choose,
+                              style: TextStyle(
+                                  color: themeListener.isDark
+                                      ? lightColor
+                                      : appColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            trailing: IconButton(
-                                icon: const Icon(Icons.cancel),
-                                onPressed: () {}),
-                          ),
-                        ));
-                  },
-                ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: cartProvider.getCartProductList.length,
+                        padding: const EdgeInsets.all(12),
+                        itemBuilder: (context, index) {
+                          return CartWidget(
+                              productModel:
+                                  cartProvider.getCartProductList[index]);
+                        },
+                      ),
               ),
             ),
 
             // total amount + pay now
-
-            Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: themeListener.isDark ? subColor : Colors.green,
-                ),
-                padding: const EdgeInsets.all(24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.caut,
-                          style: TextStyle(
-                              color: themeListener.isDark
-                                  ? lightColor.withOpacity(0.4)
-                                  : Colors.grey),
-                        ),
-
-                        const SizedBox(height: 8),
-                        // total price
-                        const Text(
-                          'calculateTotal',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+            cartProvider.getCartProductList.isEmpty
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MainButton(
+                          text: AppLocalizations.of(context)!.store,
+                          withBorder: false,
+                          widthFromScreen: 0.9,
+                          isloading: false,
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const StoreScreen()));
+                          }),
                     ),
-
-                    // pay now
-                    Container(
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(36.0),
+                    child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.red.shade200),
-                        borderRadius: BorderRadius.circular(28),
+                        borderRadius: BorderRadius.circular(8),
+                        color: themeListener.isDark
+                            ? subColor
+                            : Colors.blueAccent.withOpacity(0.5),
                       ),
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(24),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            AppLocalizations.of(context)!.next,
-                            style: const TextStyle(color: Colors.white),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.caut,
+                                style: TextStyle(
+                                    color: themeListener.isDark
+                                        ? lightColor.withOpacity(0.4)
+                                        : Colors.grey),
+                              ),
+
+                              const SizedBox(height: 8),
+                              // total price
+                              const Text(
+                                '30',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20,
-                            color: Colors.white,
+
+                          // pay now
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.red.shade200),
+                              borderRadius: BorderRadius.circular(28),
+                            ),
+                            padding: const EdgeInsets.all(15),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const OrderScreen()));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.next,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            )
+                  )
           ],
         ));
   }

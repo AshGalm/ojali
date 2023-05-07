@@ -20,6 +20,7 @@ class ProductProvider with ChangeNotifier {
   initProducts() {
     getCats();
     getAllProducts();
+    latesProduct();
   }
 
   // Get all Categories Data
@@ -46,6 +47,27 @@ class ProductProvider with ChangeNotifier {
     });
   }
 
+// Get the latest product
+  latesProduct() async {
+    isloading = true;
+    notifyListeners();
+    await firestore
+        .collection('products')
+        .orderBy('createdAt', descending: true)
+        .get()
+        .then((value) {
+      prdouctList.clear();
+      for (var item in value.docs) {
+        prdouctList.add(ProductModel.fromJson(item.data()));
+      }
+      isloading = false;
+      notifyListeners();
+    });
+  }
+
+  //
+
+//
   getProcuctByCateUID(String catUID) async {
     isloading = true;
     notifyListeners();

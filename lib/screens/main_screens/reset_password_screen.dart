@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ojali/screens/auth_screens/otp_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../helpers/const.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/main_button.dart';
 import '../../widgets/input_widgets/text_field_widget.dart';
+import '../handling_screens/res_succed.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -17,6 +18,8 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   TextEditingController emailController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -93,13 +96,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   text: AppLocalizations.of(context)!.continu,
                   withBorder: false,
                   isloading: false,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => OtpScreen(
-                                  email: emailController.text,
-                                )));
+                  onPressed: () async {
+                    await auth
+                        .sendPasswordResetEmail(email: emailController.text)
+                        .then((value) {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: ((context) => const ResetScreen())));
+                    });
                   },
                   widthFromScreen: 0.9,
                 ),

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:ojali/models/product_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FoodCard extends StatelessWidget {
-  const FoodCard(
-      {super.key,
-      required this.productImage,
-      required this.productName,
-      required this.onTap,
-      required this.productPrice,
-      this.productCat});
-  final String productImage;
-  final String productName;
-  final String? productCat;
-  final String productPrice;
+class FoodCard extends StatefulWidget {
+  const FoodCard({super.key, required this.onTap, required this.productModel});
+  final ProductModel productModel;
   final Function onTap;
 
+  @override
+  State<FoodCard> createState() => _FoodCardState();
+}
+
+class _FoodCardState extends State<FoodCard> {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
@@ -30,7 +28,7 @@ class FoodCard extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: GestureDetector(
                 onTap: () {
-                  onTap();
+                  widget.onTap();
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch, // add this
@@ -42,7 +40,7 @@ class FoodCard extends StatelessWidget {
                       ),
                       child: Image.network(
                           // 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                          productImage,
+                          widget.productModel.imageUrl,
                           // width: 300,
                           height: 150,
                           fit: BoxFit.fill),
@@ -50,18 +48,20 @@ class FoodCard extends StatelessWidget {
                     ListTile(
                       title: Text(
                         // 'بيتزا اقراص',
-                        productName,
+                        AppLocalizations.of(context)!.localeName == 'ar'
+                            ? widget.productModel.nameAr
+                            : widget.productModel.nameEn,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
                         // 'معجنات',
-                        productCat!,
+                        widget.productModel.categoryUid,
                         style: const TextStyle(
                             color: Colors.grey, fontWeight: FontWeight.w500),
                       ),
                       trailing: Text(
                         // 'السعر 1.5 ',
-                        productPrice,
+                        widget.productModel.price,
                         style: const TextStyle(
                             color: Colors.grey, fontWeight: FontWeight.w500),
                       ),

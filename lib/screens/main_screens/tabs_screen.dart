@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../helpers/const.dart';
 import '../../providers/dark_theme_provider.dart';
 import 'home_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'setting_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -47,19 +48,19 @@ class _TabsScreenState extends State<TabsScreen> {
         unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
-              label: 'Home',
+              label: AppLocalizations.of(context)!.home,
               icon: Icon(
                 Icons.home,
                 color: themeListener.isDark ? lightColor : darkColor,
               )),
           BottomNavigationBarItem(
-              label: 'store',
+              label: AppLocalizations.of(context)!.store,
               icon: Icon(
                 Icons.store,
                 color: themeListener.isDark ? lightColor : darkColor,
               )),
           BottomNavigationBarItem(
-              label: 'setting',
+              label: AppLocalizations.of(context)!.setting,
               icon: Icon(
                 Icons.settings,
                 color: themeListener.isDark ? lightColor : darkColor,

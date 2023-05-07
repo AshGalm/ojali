@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ojali/screens/main_screens/tabs_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../main_screens/home_screen.dart';
 
 class SingUpScreen extends StatefulWidget {
   const SingUpScreen({super.key});
@@ -17,9 +16,11 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class _SingUpScreenState extends State<SingUpScreen> {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool enableLoginBtn = false;
+  bool showPassword = true;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -58,9 +59,9 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFieldWidget(
-                      label: AppLocalizations.of(context)!.email,
-                      controller: emailController,
-                      hintText: AppLocalizations.of(context)!.email,
+                      label: AppLocalizations.of(context)!.name,
+                      controller: nameController,
+                      hintText: AppLocalizations.of(context)!.name,
                       obSecureText: false,
                       validator: (String? value) {
                         if (value!.isEmpty) {
@@ -73,11 +74,35 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFieldWidget(
+                      label: AppLocalizations.of(context)!.email,
+                      controller: emailController,
+                      hintText: AppLocalizations.of(context)!.email,
+                      obSecureText: false,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return AppLocalizations.of(context)!.error_email;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFieldWidget(
                       label: AppLocalizations.of(context)!.password,
                       controller: passwordController,
                       hintText: AppLocalizations.of(context)!.pass,
-                      obSecureText: false,
-                      perfix: const Icon(Icons.remove_red_eye_outlined),
+                      obSecureText: showPassword,
+                      perfix: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                        child: Icon(showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return AppLocalizations.of(context)!.error_password;
@@ -108,15 +133,19 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                       email: emailController.text,
                                       password: passwordController.text)
                                   .then((value) async {
-                                firestore.collection('useers').add({
+                                firestore
+                                    .collection('users')
+                                    .doc(value.user!.uid)
+                                    .set({
                                   "uid": value.user!.uid,
-                                  "email": value.user!.uid,
+                                  "email": emailController.text,
+                                  "name": nameController.text,
                                 }).then((value) async {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) =>
-                                              const HomeScreen()),
+                                              const TabsScreen()),
                                       (route) => false);
                                 });
                               });
@@ -126,7 +155,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           height: 10,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.ac_sing,
+                          AppLocalizations.of(context)!.ac_log,
                           style: const TextStyle(
                               fontSize: 13, fontWeight: FontWeight.w700),
                         ),

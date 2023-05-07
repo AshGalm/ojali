@@ -68,6 +68,14 @@ class _StoreScreenState extends State<StoreScreen> {
         backgroundColor:
             themeListener.isDark ? Colors.transparent : Colors.transparent,
         elevation: 0,
+        centerTitle: true,
+        title: Text(
+          AppLocalizations.of(context)!.store,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: themeListener.isDark ? appColor : darkColor),
+        ),
       ),
       body: SingleChildScrollView(
         child: Consumer<ProductProvider>(
@@ -78,6 +86,7 @@ class _StoreScreenState extends State<StoreScreen> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextFieldWidget(
+                    onchange: () {},
                     controller: searchController,
                     hintText: AppLocalizations.of(context)!.search,
                     perfix: const Icon(Icons.search),
@@ -110,11 +119,14 @@ class _StoreScreenState extends State<StoreScreen> {
                   shrinkWrap: true,
                   itemCount: productsProvider.categories.length,
                   scrollDirection: Axis.horizontal,
+                  physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return FilterButton(
                       isSelected: index == filterIndex,
                       onClick: () async {
                         filterIndex = index;
+                        selectedCatUid =
+                            productsProvider.categories[index].nameEn;
                         await firestore
                             .collection('Categories')
                             .where('name_en',
@@ -150,8 +162,11 @@ class _StoreScreenState extends State<StoreScreen> {
               ),
               SizedBox(
                 child: productsProvider.prdouctList.isEmpty
-                    ? const Center(
-                        child: Text('No DATA'),
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(AppLocalizations.of(context)!.nodata),
+                        ),
                       )
                     : ListView.builder(
                         shrinkWrap: true,
@@ -159,16 +174,15 @@ class _StoreScreenState extends State<StoreScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return FoodCard(
-                            // productModel: productsProvider.prdouctList[index],
+                            productModel: productsProvider.prdouctList[index],
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const FoodDetails()));
+                                  builder: (context) => FoodDetails(
+                                        productModel:
+                                            productsProvider.prdouctList[index],
+                                      )));
                             },
                             // productCat: 'معجنات',
-                            productImage:
-                                'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                            productName: 'بيتزا اقراص',
-                            productPrice: 'السعر 1.4 ',
                           );
                         }),
               )
