@@ -8,8 +8,6 @@ import 'package:flutter/cupertino.dart';
 import '../../widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../main_screens/home_screen.dart';
-
 class SingUpScreen extends StatefulWidget {
   const SingUpScreen({super.key});
 

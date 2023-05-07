@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ojali/models/branches_model.dart';
@@ -161,13 +163,29 @@ class _BranchesScreenState extends State<BranchesScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                   onTap: () async {
-                                    const url =
-                                        'https://www.facebook.com/alojaly.4.food';
-                                    final uri = Uri.parse(url);
-                                    if (await canLaunchUrl(uri)) {
-                                      await launchUrl(uri);
-                                    } else {
-                                      throw 'error in code';
+                                    // const url =
+                                    //     'https://www.facebook.com/alojaly.4.food';
+                                    // final uri = Uri.parse(url);
+                                    // if (await canLaunchUrl(uri)) {
+                                    //   await launchUrl(uri);
+                                    // } else {
+                                    //   throw 'error in code';
+                                    // }
+
+                                    var androidUrl =
+                                        "fb://profile/163345204323779";
+                                    var iosUrl = "fb://profile/163345204323779";
+
+                                    try {
+                                      if (Platform.isIOS) {
+                                        await launchUrl(Uri.parse(iosUrl));
+                                      } else {
+                                        await launchUrl(Uri.parse(androidUrl));
+                                      }
+                                    } on Exception {
+                                      if (kDebugMode) {
+                                        print("whatsapp not installed");
+                                      }
                                     }
                                   },
                                   child: const FaIcon(
@@ -181,13 +199,31 @@ class _BranchesScreenState extends State<BranchesScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                     onTap: () async {
-                                      const url =
-                                          'https://www.instagram.com/alojaly_4_food_/';
-                                      final uri = Uri.parse(url);
-                                      if (await canLaunchUrl(uri)) {
-                                        await launchUrl(uri);
-                                      } else {
-                                        throw 'error in code';
+                                      // const url =
+                                      //     'https://www.instagram.com/alojaly_4_food_/';
+                                      // final uri = Uri.parse(url);
+                                      // if (await canLaunchUrl(uri)) {
+                                      //   await launchUrl(uri);
+                                      // } else {
+                                      //   throw 'error in code';
+                                      // }
+
+                                      var androidUrl =
+                                          "instagram://user?username=alojaly_4_food_";
+                                      var iosUrl =
+                                          "instagram://user?username=alojaly_4_food_";
+
+                                      try {
+                                        if (Platform.isIOS) {
+                                          await launchUrl(Uri.parse(iosUrl));
+                                        } else {
+                                          await launchUrl(
+                                              Uri.parse(androidUrl));
+                                        }
+                                      } on Exception {
+                                        if (kDebugMode) {
+                                          print("instagram not installed");
+                                        }
                                       }
                                     },
                                     child: const FaIcon(

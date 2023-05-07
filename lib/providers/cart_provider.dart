@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ojali/models/product_model.dart';
 
 class CartProvider with ChangeNotifier {
-  List<ProductModel> _cartProductList = [];
+  final List<ProductModel> _cartProductList = [];
 
 // add to cart
   void addCartProduct(ProductModel productModel) {

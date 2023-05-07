@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import '../models/user_model.dart';
 
@@ -12,7 +12,7 @@ class UserProvider with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   // List of Data
-  List<UserModel> userList = [];
+  UserModel? userModel;
 
   initUser() {
     getInfo();
@@ -22,13 +22,22 @@ class UserProvider with ChangeNotifier {
     try {
       isloading = true;
       notifyListeners();
-      final value =
-          await firestore.collection('users').doc(auth.currentUser?.uid).get();
-      userList.clear();
-      userList.add(UserModel.fromJson(value.data()!));
+      var value = await firestore
+          .collection('users')
+          .doc(auth.currentUser?.uid)
+          // .where('uid', isEqualTo: auth.currentUser!.uid)
+          .get();
+
+      if (value.data()!.isNotEmpty) {
+        userModel = UserModel.fromJson(value.data()!);
+      } else {}
+
+      // userModel = UserModel.fromJson(value.docs.first.data());
     } catch (e) {
       isFailed = true;
-      print('Error fetching user data: $e');
+      if (kDebugMode) {
+        print('Error fetching user data: $e');
+      }
     } finally {
       isloading = false;
       notifyListeners();

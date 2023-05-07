@@ -4,7 +4,7 @@ import 'package:ojali/widgets/input_widgets/text_field_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/const.dart';
-import '../../providers/cart_provider.dart';
+// import '../../providers/cart_provider.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/input_widgets/addres_field_widget.dart';
 
@@ -23,9 +23,9 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    CartProvider cartProvider = Provider.of<CartProvider>(
-      context,
-    );
+    // CartProvider cartProvider = Provider.of<CartProvider>(
+    //   context,
+    // );
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : lightColor,
         appBar: AppBar(

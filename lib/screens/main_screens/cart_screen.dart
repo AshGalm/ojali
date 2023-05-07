@@ -153,7 +153,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => OrderScreen()));
+                                    builder: (context) => const OrderScreen()));
                               },
                               child: Row(
                                 children: [

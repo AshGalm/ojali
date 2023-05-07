@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +23,7 @@ class _InformScreenState extends State<InformScreen> {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    FirebaseAuth auth = FirebaseAuth.instance;
+    // FirebaseAuth auth = FirebaseAuth.instance;
 
     //  Theme provider functions variable
 
