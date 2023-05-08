@@ -89,7 +89,8 @@
     "nodata":"No Data Find ",
     "order":"Order",
     "address":"Address",
-    "user_data":"Please enter reservation data:"
+    "user_data":"Please enter reservation data:",
+    "order_placed":"your order was placed in Waiting list"
 
 
 }

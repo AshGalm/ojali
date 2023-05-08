@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 import 'package:ojali/widgets/input_widgets/text_field_widget.dart';
@@ -5,8 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../helpers/const.dart';
 // import '../../providers/cart_provider.dart';
+import '../../providers/cart_provider.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/input_widgets/addres_field_widget.dart';
+import '../handling_screens/order_succed.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -16,6 +21,9 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -23,9 +31,9 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    // CartProvider cartProvider = Provider.of<CartProvider>(
-    //   context,
-    // );
+    CartProvider cartProvider = Provider.of<CartProvider>(
+      context,
+    );
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : lightColor,
         appBar: AppBar(
@@ -73,7 +81,7 @@ class _OrderScreenState extends State<OrderScreen> {
               TextFieldWidget(
                   label: AppLocalizations.of(context)!.phonenumber,
                   controller: phoneController,
-                  hintText: '',
+                  hintText: AppLocalizations.of(context)!.phone,
                   validator: (value) {
                     return null;
                   },
@@ -97,7 +105,24 @@ class _OrderScreenState extends State<OrderScreen> {
                   withBorder: false,
                   widthFromScreen: 0.9,
                   isloading: false,
-                  onPressed: () {})
+                  onPressed: () async {
+                    firestore.collection('orders').add({
+                      'uid': auth.currentUser!.uid,
+                      'name': nameController.text,
+                      'phone': phoneController.text,
+                      'address': addressController.text,
+                      'order': cartProvider.getCartProductList
+                          .map((e) => e.toJson())
+                          .toList(),
+                      'status': ""
+                    }).then((value) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const SuccedOrder()),
+                          (route) => false);
+                    });
+                  })
             ]),
           ),
         ));
