@@ -27,7 +27,9 @@ class _MainButtonState extends State<MainButton> {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        widget.onPressed();
+        if (widget.isActive) {
+          widget.onPressed();
+        }
       },
       child: Center(
         child: Container(

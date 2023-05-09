@@ -10,6 +10,7 @@ import '../../helpers/const.dart';
 import '../../main.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/switch_mode.dart';
+import '../auth_screens/login_screen.dart';
 import '../sub_screens/order_details_screen.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -244,7 +245,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => const MyApp()),
+                                    builder: (context) => const LoginScreen()),
                                 (route) => false);
                           },
                           child: Text(
