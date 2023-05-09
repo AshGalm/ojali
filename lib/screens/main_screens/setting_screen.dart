@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ojali/screens/main_screens/inform_screen.dart';
 import 'package:ojali/screens/main_screens/reset_password_screen.dart';
-import 'package:ojali/screens/sub_screens/user_setting_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../helpers/const.dart';
 import '../../main.dart';
 import '../../providers/dark_theme_provider.dart';
 import '../../widgets/clickable_widgets/switch_mode.dart';
+import '../sub_screens/order_details_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -20,12 +20,13 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   bool value = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    // final userDetajils = Provider.of<UserProvider>(context, listen: true);
 
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : lightColor,
@@ -66,7 +67,36 @@ class _SettingScreenState extends State<SettingScreen> {
                     'assets/setting.png',
                   ),
                 ),
-
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.email,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color:
+                                themeListener.isDark ? lightColor : darkColor),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          auth.currentUser?.email ?? '',
+                          style: TextStyle(
+                              color:
+                                  themeListener.isDark ? lightColor : darkColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  color: themeListener.isDark
+                      ? lightColor.withOpacity(0.2)
+                      : darkColor.withOpacity(0.2),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -83,31 +113,20 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                       ),
                       const SwitchMode(),
-
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     themeFunction.switchMode();
-                      //     Provider.of<DarkThemeProvider>(context, listen: true)
-                      //         .switchMode();
-                      //   },
-                      //   child: Icon(
-                      //     themeListener.isDark
-                      //         ? Icons.bedtime_off_sharp
-                      //         : Icons.bedtime,
-                      //     size: 40,
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
-                //
-
+                Divider(
+                  color: themeListener.isDark
+                      ? lightColor.withOpacity(0.2)
+                      : darkColor.withOpacity(0.2),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       Icon(
-                        Icons.person_rounded,
+                        Icons.article_outlined,
                         size: 40,
                         color: themeListener.isDark ? lightColor : darkColor,
                       ),
@@ -116,10 +135,10 @@ class _SettingScreenState extends State<SettingScreen> {
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const UserSetting()));
+                                builder: (context) => const OrderDetails()));
                           },
                           child: Text(
-                            AppLocalizations.of(context)!.account,
+                            AppLocalizations.of(context)!.my_order,
                             style: TextStyle(
                                 color: themeListener.isDark
                                     ? lightColor
@@ -137,7 +156,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? lightColor.withOpacity(0.2)
                       : darkColor.withOpacity(0.2),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -243,107 +261,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: MainButton(
-                //       text: AppLocalizations.of(context)!.logout,
-                //       withBorder: true,
-                //       widthFromScreen: 0.5,
-                //       isloading: false,
-                //       onPressed: () {},
-                //       isActive: true),
-                // )
               ],
             ),
           ),
         ));
   }
 }
-
-
-
-
-// Padding(
-//         padding: const EdgeInsets.all(20.0),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Row(
-//                 children: [
-//                   const Icon(
-//                     Icons.person_rounded,
-//                     size: 50,
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: GestureDetector(
-//                       onTap: () {},
-//                       child: const Text(
-//                         'Edit User Data',
-//                         style: TextStyle(
-//                             fontSize: 20, fontWeight: FontWeight.w600),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Row(
-//                 children: [
-//                   const Icon(
-//                     Icons.lock_rounded,
-//                     size: 50,
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: GestureDetector(
-//                       onTap: () {},
-//                       child: const Text(
-//                         'Change User Password',
-//                         style: TextStyle(
-//                             fontSize: 20, fontWeight: FontWeight.w600),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Row(
-//                 children: [
-//                   const Icon(
-//                     Icons.warning_rounded,
-//                     size: 50,
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: GestureDetector(
-//                       onTap: () {},
-//                       child: const Text(
-//                         'Error ',
-//                         style: TextStyle(
-//                             fontSize: 20, fontWeight: FontWeight.w600),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: MainButton(
-//                   text: 'Log Out',
-//                   withBorder: true,
-//                   widthFromScreen: 0.5,
-//                   isloading: false,
-//                   onPressed: () {},
-//                   isActive: true),
-//             )
-//           ],
-//         ),
-//       ),

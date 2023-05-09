@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ojali/providers/prodcut_provider.dart';
 import 'package:ojali/screens/sub_screens/food_details_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/filter_button.dart';
-import 'package:ojali/widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
@@ -29,26 +28,6 @@ class _StoreScreenState extends State<StoreScreen> {
 
   String? selectedCatUid;
 
-  // List filters = [
-  //   'الكل',
-  //   'معجنات',
-  //   'سلاطات',
-  //   'نواشف',
-  // ];
-  // getCats() {
-  //   firestore.collection('Categories').get().then((value) {
-  //     for (var element in value.docs) {
-  //       filtersList.add(element.data());
-  //     }
-  //     setState(() {});
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   getCats();
-  //   super.initState();
-  // }
   @override
   void initState() {
     Provider.of<ProductProvider>(context, listen: false).initProducts();
@@ -57,10 +36,10 @@ class _StoreScreenState extends State<StoreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //  Theme provider functions variable
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
     final productsFunctions =
         Provider.of<ProductProvider>(context, listen: false);
-    //  Theme provider functions variable
 
     return Scaffold(
       backgroundColor: themeListener.isDark ? darkColor : lightColor,
@@ -83,18 +62,7 @@ class _StoreScreenState extends State<StoreScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: TextFieldWidget(
-                    onchange: () {},
-                    controller: searchController,
-                    hintText: AppLocalizations.of(context)!.search,
-                    perfix: const Icon(Icons.search),
-                    validator: (String? value) {
-                      return null;
-                    },
-                    obSecureText: false),
-              ),
+              Image.asset('assets/food.jpg'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -146,17 +114,6 @@ class _StoreScreenState extends State<StoreScreen> {
                           ? productsProvider.categories[index].nameAr
                           : productsProvider.categories[index].nameEn,
                     );
-                    // FilterButton(
-                    // btnTitle:
-                    //     AppLocalizations.of(context)!.localeName == "ar"
-                    //         ? filtersList[index]["name_ar"]
-                    //         : filtersList[index]["name_en"],
-                    // isSelected: index == filterIndex,
-                    // onClick: () {
-                    //   setState(() {
-                    //     filterIndex = index;
-                    //   });
-                    // });
                   },
                 ),
               ),
@@ -182,7 +139,6 @@ class _StoreScreenState extends State<StoreScreen> {
                                             productsProvider.prdouctList[index],
                                       )));
                             },
-                            // productCat: 'معجنات',
                           );
                         }),
               )
@@ -193,19 +149,3 @@ class _StoreScreenState extends State<StoreScreen> {
     );
   }
 }
-
-
-
-// GridView.builder(
-//                 shrinkWrap: true,
-//                 itemCount: 2,
-//                 physics: const NeverScrollableScrollPhysics(),
-//                 itemBuilder: (context, index) {
-//                   return const FoodCard();
-//                 },
-//                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 2,
-//                     childAspectRatio: 1,
-//                     crossAxisSpacing: 8,
-//                     mainAxisSpacing: 8),
-//               ),

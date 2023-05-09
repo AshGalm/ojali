@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,12 +21,14 @@ class InformScreen extends StatefulWidget {
 }
 
 class _InformScreenState extends State<InformScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  GlobalKey<FormState> sendFormKey = GlobalKey<FormState>();
+  bool enableSendBtn = false;
+
   @override
   Widget build(BuildContext context) {
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    // FirebaseAuth auth = FirebaseAuth.instance;
-
     //  Theme provider functions variable
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     TextEditingController titleController = TextEditingController();
     TextEditingController infoController = TextEditingController();
@@ -53,104 +56,107 @@ class _InformScreenState extends State<InformScreen> {
             themeListener.isDark ? Colors.transparent : Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: themeListener.isDark
-              ? lightColor
-              : darkColor, //change your color here
+          color: themeListener.isDark ? lightColor : darkColor,
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.prob,
-                    style: TextStyle(
-                        color: themeListener.isDark ? lightColor : darkColor,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFieldWidget(
-                  label: AppLocalizations.of(context)!.title,
-                  controller: titleController,
+          child: Form(
+            key: sendFormKey,
+            onChanged: () {
+              setState(() {
+                enableSendBtn = sendFormKey.currentState!.validate();
+              });
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.prob,
+                      style: TextStyle(
+                          color: themeListener.isDark ? lightColor : darkColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFieldWidget(
+                    label: AppLocalizations.of(context)!.title,
+                    controller: titleController,
+                    hintText: '',
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return AppLocalizations.of(context)!.error_phone;
+                      }
+                      return null;
+                    },
+                    obSecureText: false),
+                const SizedBox(
+                  height: 20,
+                ),
+                AddresFieldWidget(
+                  label: AppLocalizations.of(context)!.issus_detils,
+                  controller: infoController,
                   hintText: '',
+                  obSecureText: false,
                   validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return AppLocalizations.of(context)!.error_phone;
+                    }
                     return null;
                   },
-                  obSecureText: false),
-
-              const SizedBox(
-                height: 20,
-              ),
-
-              AddresFieldWidget(
-                label: AppLocalizations.of(context)!.issus_detils,
-                controller: infoController,
-                hintText: '',
-                obSecureText: false,
-                validator: (String? value) {
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              MainButton(
-                  text: AppLocalizations.of(context)!.send,
-                  withBorder: false,
-                  widthFromScreen: 0.9,
-                  isloading: false,
-                  onPressed: () async {
-                    FirebaseFirestore firestore = FirebaseFirestore.instance;
-                    await firestore.collection('reportApp').add({
-                      "title": titleController.text,
-                      "des": infoController.text,
-                      // "user": auth.currentUser
-                    }).then((value) {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const SendDataScreen()),
-                      );
-                    });
-                  },
-                  isActive: true),
-              const SizedBox(
-                height: 10,
-              ),
-              // MainButton(
-              //     text: AppLocalizations.of(context)!.back,
-              //     withBorder: true,
-              //     widthFromScreen: 0.9,
-              //     isloading: false,
-              //     onPressed: () {},
-              //     isActive: true),
-              Divider(
-                color: themeListener.isDark
-                    ? lightColor.withOpacity(0.2)
-                    : darkColor.withOpacity(0.2),
-              ),
-              Text(
-                AppLocalizations.of(context)!.issue,
-                style: const TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey),
-              )
-            ],
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                MainButton(
+                    text: AppLocalizations.of(context)!.send,
+                    withBorder: false,
+                    widthFromScreen: 0.9,
+                    isloading: false,
+                    onPressed: () async {
+                      FirebaseFirestore firestore = FirebaseFirestore.instance;
+                      await firestore.collection('reportApp').add({
+                        "title": titleController.text,
+                        "des": infoController.text,
+                        "user": auth.currentUser!.uid
+                      }).then((value) {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const SendDataScreen()),
+                        );
+                      });
+                    },
+                    isActive: enableSendBtn),
+                const SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: themeListener.isDark
+                      ? lightColor.withOpacity(0.2)
+                      : darkColor.withOpacity(0.2),
+                ),
+                Text(
+                  AppLocalizations.of(context)!.issue,
+                  style: const TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey),
+                )
+              ],
+            ),
           ),
         ),
       ),

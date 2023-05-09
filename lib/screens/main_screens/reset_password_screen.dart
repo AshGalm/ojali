@@ -23,9 +23,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     //  Theme provider functions variable
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Scaffold(
       backgroundColor: themeListener.isDark ? darkColor : Colors.white,
@@ -34,9 +34,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             themeListener.isDark ? Colors.transparent : Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: themeListener.isDark
-              ? lightColor
-              : darkColor, //change your color here
+          color: themeListener.isDark ? lightColor : darkColor,
         ),
       ),
       body: Center(

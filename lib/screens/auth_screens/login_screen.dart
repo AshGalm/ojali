@@ -28,9 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  // static const snackBar =
-  //     SnackBar(content: Text('wrong  password please enter the correct one'));
-
   @override
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
@@ -70,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: emailController,
                       hintText: AppLocalizations.of(context)!.email,
                       obSecureText: false,
-                      // perfix: const Icon(Icons.phone),
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return AppLocalizations.of(context)!.error_email;
