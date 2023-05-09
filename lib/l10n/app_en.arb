@@ -31,7 +31,7 @@
     "ojali":" Ojali Store ",
     "newoj":" New Ojali ",
     "famsoj":"Fames Ojali ",
-    "foodtypes":"Types:",
+    "foodtypes":"Categories:",
     "category":"Category:",
     "branche":" Our Branches ",
     "all":"All",
@@ -87,10 +87,13 @@
     "re":"You will be redirected to the main interface after 10 seconds",
     "rep":"Report",
     "nodata":"No Data Find ",
+    "buy":"Complete the reservation process",
+    "user":"Said Saeid",
     "order":"Order",
+    "orders":"orders list",
     "address":"Address",
     "user_data":"Please enter reservation data:",
-    "order_placed":"your order was placed in Waiting list"
-
+    "order_placed":"your order was placed in Waiting list",
+    "my_order":"Orders"
 
 }

@@ -25,10 +25,12 @@ class ProductProvider with ChangeNotifier {
 
   // Get all Categories Data
   getCats() {
+    categories.clear();
     firestore.collection('Categories').get().then((value) {
       for (var item in value.docs) {
         categories.add(CategoryModel.fromJson(item.data()));
       }
+
       notifyListeners();
     });
   }
@@ -53,7 +55,7 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
     await firestore
         .collection('products')
-        .orderBy('createdAt', descending: true)
+        // .orderBy('createdAt', descending: true)
         .get()
         .then((value) {
       prdouctList.clear();

@@ -27,11 +27,8 @@ class _BranchesScreenState extends State<BranchesScreen> {
   Widget build(BuildContext context) {
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
-    // Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : Colors.white,
-        // appBar: AppBar(),
         body: Stack(
           children: [
             Container(

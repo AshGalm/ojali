@@ -34,12 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-    // Listening to the theme provider
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    // final productsFunctions =
-    // Provider.of<ProductProvider>(context, listen: false);
-    //  Theme provider functions variable
 
     return Scaffold(
       backgroundColor: themeListener.isDark ? darkColor : lightColor,
@@ -94,17 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, productsProvider, branchProvider, child) {
           return Column(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(16.0),
-              //   child: TextFieldWidget(
-              //       controller: searchController,
-              //       hintText: AppLocalizations.of(context)!.search,
-              //       obSecureText: false,
-              //       perfix: const Icon(Icons.search),
-              //       validator: (String? value) {
-              //         return null;
-              //       }),
-              // ),
               const SizedBox(
                 height: 20,
               ),
@@ -129,7 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: productsProvider.prdouctList.length,
+                        itemCount: 3,
+                        reverse: true,
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return SmallCardWidget(

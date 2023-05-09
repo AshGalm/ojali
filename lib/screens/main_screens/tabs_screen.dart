@@ -18,10 +18,8 @@ class _TabsScreenState extends State<TabsScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-
     //  Theme provider functions variable
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Scaffold(
       body: AnimatedSwitcher(

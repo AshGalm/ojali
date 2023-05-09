@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ojali/providers/cart_provider.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 
@@ -6,7 +7,6 @@ import '../../helpers/const.dart';
 import '../../models/product_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// import 'package:ojali/providers/prodcut_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/dark_theme_provider.dart';
@@ -23,36 +23,13 @@ class FoodDetails extends StatefulWidget {
 }
 
 class _FoodDetailsState extends State<FoodDetails> {
-  // final int productID;
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-    // final productsFunctions =
-    // Provider.of<ProductProvider>(context, listen: false);
     CartProvider cartProvider = Provider.of<CartProvider>(context);
-    // final cartFunctions = Provider.of<CartProvider>(context, listen: false);
 
     return Scaffold(
         backgroundColor: themeListener.isDark ? darkColor : Colors.white,
-        // appBar: AppBar(
-        //   backgroundColor:
-        //       themeListener.isDark ? Colors.transparent : Colors.transparent,
-        //   elevation: 0,
-        //   centerTitle: true,
-        //   title: Text(
-        //     AppLocalizations.of(context)!.localeName == "ar"
-        //         ? widget.productModel.nameAr
-        //         : widget.productModel.nameEn,
-        //     style:
-        //         TextStyle(color: themeListener.isDark ? lightColor : appColor),
-        //   ),
-        //   iconTheme: IconThemeData(
-        //     color: themeListener.isDark
-        //         ? lightColor
-        //         : darkColor, //change your color here
-        //   ),
-        // ),
         body: Stack(
           children: [
             Container(
@@ -97,27 +74,14 @@ class _FoodDetailsState extends State<FoodDetails> {
                                   fontSize: 26, fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20,
-                        left: 30,
-                        right: 30,
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.price,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            widget.productModel.price,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.ly,
-                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: FaIcon(
+                              FontAwesomeIcons.bowlFood,
+                              size: 25,
+                              color: subColor,
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -152,17 +116,20 @@ class _FoodDetailsState extends State<FoodDetails> {
                       child: Row(
                         children: [
                           Expanded(
-                              child: Column(
+                              child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.caut,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                AppLocalizations.of(context)!.price,
+                                style: const TextStyle(fontSize: 16),
                               ),
                               Text(
-                                widget.productModel.price,
-                                style: const TextStyle(fontSize: 13),
+                                AppLocalizations.of(context)!.localeName == 'ar'
+                                    ? "${widget.productModel.price} دينار"
+                                    : "${widget.productModel.price} LYD",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           )),

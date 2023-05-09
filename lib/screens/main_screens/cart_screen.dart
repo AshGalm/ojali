@@ -37,16 +37,12 @@ class _CartScreenState extends State<CartScreen> {
               themeListener.isDark ? Colors.transparent : Colors.transparent,
           elevation: 0,
           iconTheme: IconThemeData(
-            color: themeListener.isDark
-                ? lightColor
-                : darkColor, //change your color here
+            color: themeListener.isDark ? lightColor : darkColor,
           ),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Let's order fresh items for you
-            // list view of cart
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -90,7 +86,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
 
-            // total amount + pay now
+            // check || show selected prdoucts
             cartProvider.getCartProductList.isEmpty
                 ? Center(
                     child: Padding(
@@ -111,9 +107,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: themeListener.isDark
-                            ? subColor
-                            : Colors.blueAccent.withOpacity(0.5),
+                        color: themeListener.isDark ? Colors.white : subColor,
                       ),
                       padding: const EdgeInsets.all(24),
                       child: Row(
@@ -122,31 +116,26 @@ class _CartScreenState extends State<CartScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                AppLocalizations.of(context)!.caut,
-                                style: TextStyle(
-                                    color: themeListener.isDark
-                                        ? lightColor.withOpacity(0.4)
-                                        : Colors.grey),
-                              ),
-
                               const SizedBox(height: 8),
-                              // total price
-                              const Text(
-                                '30',
+                              Text(
+                                AppLocalizations.of(context)!.buy,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: themeListener.isDark
+                                      ? subColor
+                                      : Colors.white,
                                 ),
                               ),
                             ],
                           ),
-
-                          // pay now
+                          // Go to checkout
                           Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.red.shade200),
+                              border: Border.all(
+                                  color: themeListener.isDark
+                                      ? subColor
+                                      : Colors.red.shade200),
                               borderRadius: BorderRadius.circular(28),
                             ),
                             padding: const EdgeInsets.all(15),
@@ -159,12 +148,17 @@ class _CartScreenState extends State<CartScreen> {
                                 children: [
                                   Text(
                                     AppLocalizations.of(context)!.next,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: themeListener.isDark
+                                            ? subColor
+                                            : Colors.white),
                                   ),
-                                  const Icon(
+                                  Icon(
                                     Icons.arrow_forward_ios,
                                     size: 20,
-                                    color: Colors.white,
+                                    color: themeListener.isDark
+                                        ? subColor
+                                        : Colors.white,
                                   ),
                                 ],
                               ),

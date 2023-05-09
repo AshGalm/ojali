@@ -28,7 +28,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -61,7 +60,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     child: TextFieldWidget(
                       label: AppLocalizations.of(context)!.name,
                       controller: nameController,
-                      hintText: AppLocalizations.of(context)!.name,
+                      hintText: AppLocalizations.of(context)!.user,
                       obSecureText: false,
                       validator: (String? value) {
                         if (value!.isEmpty) {
@@ -76,7 +75,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     child: TextFieldWidget(
                       label: AppLocalizations.of(context)!.email,
                       controller: emailController,
-                      hintText: AppLocalizations.of(context)!.email,
+                      hintText: AppLocalizations.of(context)!.emailex,
                       obSecureText: false,
                       validator: (String? value) {
                         if (value!.isEmpty) {
@@ -157,7 +156,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         Text(
                           AppLocalizations.of(context)!.ac_log,
                           style: const TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w700),
+                              fontSize: 13, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(
                           height: 10,

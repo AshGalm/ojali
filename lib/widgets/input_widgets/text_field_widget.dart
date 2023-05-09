@@ -29,9 +29,8 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-
     //  Theme provider functions variable
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Column(
       children: [
@@ -53,8 +52,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         ),
         TextFormField(
             style: TextStyle(
-              color: themeListener.isDark ? lightColor : darkColor,
-            ),
+                color: themeListener.isDark ? lightColor : darkColor,
+                fontSize: 16),
             onChanged: (value) {
               widget.onchange!();
             },
@@ -71,6 +70,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   : darkColor.withOpacity(0.2),
               filled: true,
               hintText: widget.hintText,
+              hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(

@@ -16,9 +16,9 @@ class _WelcomeUserState extends State<WelcomeUser> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     //  Theme provider functions variable
+    final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
 
     return Padding(
       padding: const EdgeInsets.only(right: 15.0, left: 15.0, top: 15),
@@ -31,7 +31,6 @@ class _WelcomeUserState extends State<WelcomeUser> {
                       ? Colors.transparent
                       : Colors.transparent)
             ]),
-        // color: Colors.amber.withOpacity(0.3),
         height: size.width * 0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

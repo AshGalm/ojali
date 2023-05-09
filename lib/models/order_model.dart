@@ -10,6 +10,7 @@ class OrderModel {
   String phone;
   String address;
   String status;
+  String createdAt;
   List<Order> order;
 
   OrderModel({
@@ -18,6 +19,7 @@ class OrderModel {
     required this.phone,
     required this.address,
     required this.status,
+    required this.createdAt,
     required this.order,
   });
 
@@ -32,6 +34,7 @@ class OrderModel {
         phone: json["phone"],
         address: json["address"],
         status: json["status"],
+        createdAt: json["created_at"],
         order: List<Order>.from(json["order"].map((x) => Order.fromJson(x))),
       );
 
@@ -41,6 +44,7 @@ class OrderModel {
         "phone": phone,
         "address": address,
         "status": status,
+        "created_at": createdAt,
         "order": List<dynamic>.from(order.map((x) => x.toJson())),
       };
 }
