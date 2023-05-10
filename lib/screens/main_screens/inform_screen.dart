@@ -24,14 +24,13 @@ class _InformScreenState extends State<InformScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   GlobalKey<FormState> sendFormKey = GlobalKey<FormState>();
   bool enableSendBtn = false;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController infoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     //  Theme provider functions variable
     final themeListener = Provider.of<DarkThemeProvider>(context, listen: true);
-
-    TextEditingController titleController = TextEditingController();
-    TextEditingController infoController = TextEditingController();
 
     return Scaffold(
       backgroundColor: themeListener.isDark ? darkColor : Colors.white,
@@ -95,6 +94,7 @@ class _InformScreenState extends State<InformScreen> {
                     label: AppLocalizations.of(context)!.title,
                     controller: titleController,
                     hintText: '',
+                    onchange: () {},
                     validator: (String? value) {
                       if (value!.isEmpty) {
                         return AppLocalizations.of(context)!.error_phone;

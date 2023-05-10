@@ -151,17 +151,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             widthFromScreen: 0.9,
                             isloading: false,
                             onPressed: () async {
-                              auth
-                                  .signInWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((value) async {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => const MyApp()),
-                                    (route) => false);
-                              });
+                              try {
+                                await auth
+                                    .signInWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text)
+                                    .then((value) async {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => const MyApp()),
+                                      (route) => false);
+                                });
+                              } catch (error) {
+                                showMessageAuth("${error}", Colors.red);
+                              }
                             },
                             isActive: enableLoginBtn),
                         const SizedBox(

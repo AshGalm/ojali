@@ -31,3 +31,13 @@ void showMessage(String message, Color myColor) {
     fontSize: 16.0,
   );
 }
+
+void showMessageAuth(String message, Color myColor) {
+  Fluttertoast.showToast(
+    timeInSecForIosWeb: 10,
+    msg: message,
+    backgroundColor: myColor,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
