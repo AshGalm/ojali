@@ -5,6 +5,7 @@ import 'package:ojali/screens/main_screens/tabs_screen.dart';
 import 'package:ojali/widgets/clickable_widgets/main_button.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../helpers/const.dart';
 import '../../widgets/input_widgets/text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -127,27 +128,31 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             widthFromScreen: 0.9,
                             isloading: false,
                             onPressed: () async {
-                              await auth
-                                  .createUserWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((value) async {
-                                firestore
-                                    .collection('users')
-                                    .doc(value.user!.uid)
-                                    .set({
-                                  "uid": value.user!.uid,
-                                  "email": emailController.text,
-                                  "name": nameController.text,
-                                }).then((value) async {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) =>
-                                              const TabsScreen()),
-                                      (route) => false);
+                              try {
+                                await auth
+                                    .createUserWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text)
+                                    .then((value) async {
+                                  firestore
+                                      .collection('users')
+                                      .doc(value.user!.uid)
+                                      .set({
+                                    "uid": value.user!.uid,
+                                    "email": emailController.text,
+                                    "name": nameController.text,
+                                  }).then((value) async {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const TabsScreen()),
+                                        (route) => false);
+                                  });
                                 });
-                              });
+                              } catch (error) {
+                                showMessageAuth("${error}", Colors.red);
+                              }
                             },
                             isActive: enableLoginBtn),
                         const SizedBox(
